@@ -10,7 +10,7 @@ https://ngrader.herokuapp.com/
 
 <b>Important for window user</b>
 
-- run command `git config --global core.longpaths true ` before using git
+- run command `git config --global core.longpaths true ` before clone the repo.
 
 Before running the server, you will need MongoDB Database and Google's recaptcha secret key. If you don't have one, check the links below.
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
