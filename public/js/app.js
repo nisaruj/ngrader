@@ -5,6 +5,7 @@ app.controller('AppCtrl', function($scope) {
     $scope.name = "New Problem";
     $scope.time = "1";
     $scope.mem = "32";
+    $scope.diff = "0";
     var probHtml = 
     '<h2 style="text-align: center;">' + $scope.name + '</h2>' +
     '<h6 style="text-align: center;">Time Limit: ' + $scope.time + ' seconds</h6>' +
@@ -16,7 +17,7 @@ app.controller('AppCtrl', function($scope) {
         <li>Basic HTML elements such as header, <b>bold</b>, <i>italic</i>, <u>underline</u>, <strike>strikethrough,</strike> <a href=\"#\">hyperlink</a>.</li> \
         <li><code>printf(\"You can insert some codes.\");</code></li> \
         <li>Unicode is supported. ภาษาไทย 日本語</li> \
-        <li>Math equation? You can do too.  \\(\\sum_{n=1}^{n} n^2 = {n(n+1)(2n+1) \\over 6}\\) <a href=\"https://en.wikibooks.org/wiki/LaTeX/Mathematics\" target=\"_blank\">Unfamiliar with LaTeX?</a></li> \
+        <li>Math equation? You can do too.  \\(\\sum_{i=1}^{n} i^2 = {n(n+1)(2n+1) \\over 6}\\) <a href=\"https://en.wikibooks.org/wiki/LaTeX/Mathematics\" target=\"_blank\">Unfamiliar with LaTeX?</a></li> \
     </ul> \
     <p>This problem is an easy one: given integer <b>a</b> and <b>b</b>, calculate <b>a+b</b>.</p> \
     <p><b>Input</b><br>The first line of input contains two integers, \\(a\\) and \\(b\\) \\((|a|, |b| &lt;= 10^9)\\)</p> \

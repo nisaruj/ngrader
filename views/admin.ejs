@@ -23,8 +23,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="/problems">Problems</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Admin</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
@@ -58,8 +61,11 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Submit Time</th>
+                                        <th scope="col">Problem</th>
                                         <th scope="col">Username</th>
+                                        <th scope="col">Lang</th>
                                         <th scope="col">Result</th>
                                         <th scope="col">Time</th>
                                         <th scope="col">Memory</th>
@@ -68,18 +74,49 @@
                                 <tbody>
                                     <% for(var i=0;i<submission.length;i++) { %>
                                     <tr>
+                                        <td><a href="/admin/submission/<%= submission[i]._id %>">#<%= submission[i]._id %></a></td>
                                         <td><%= submission[i].submit_time %></td>
+                                        <td><%= problem[submission[i].pid].name %></td>
                                         <td><%= submission[i].username %></td>
+                                        <td><%= submission[i].lang %></td>
                                         <td><%= submission[i].result.str %></td>
                                         <td><%= submission[i].result.time.toFixed(3) %></td>
-                                        <td><%= submission[i].result.memory %></td>
+                                        <td><%= submission[i].result.memory.toFixed(0) %></td>
                                     </tr>
                                     <% } %>
                                 </tbody>
                             </table>  
                         </div>
                         <div class="tab-pane container fade" id="problem">
-                            <p>Coming soon!</p>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">pid</th>
+                                        <th scope="col">Problem Name</th>
+                                        <th scope="col">Time Limit</th>
+                                        <th scope="col">Memory Limit</th>
+                                        <th scope="col">Diff</th>
+                                        <th scope="col">Avail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(var i=0;i<problem.length;i++) { %>
+                                    <tr>
+                                        <td><%= problem[i].pid %></td>
+                                        <td><%= problem[i].name %></td>
+                                        <td><%= problem[i].time_limit %></td>
+                                        <td><%= problem[i].memory_limit %></td>
+                                        <td><%= problem[i].difficulty %></td>
+                                        <td><input type="checkbox" name="avail[]" value="<%= problem[i].pid %>"
+                                            <% if (problem[i].avail) { %>
+                                                checked
+                                            <% } %>
+                                            >
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 

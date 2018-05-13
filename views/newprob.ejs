@@ -28,8 +28,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="/problems">Problems</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Admin</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
@@ -52,7 +55,7 @@
                     <div class="form-row" style="padding:10px">
                         <div class="col-3">
                             <label for="pidInput">Problem ID</label>
-                            <input type="text" class="form-control" name="pid" ng-model="pid" id="pidInput">
+                            <input type="text" class="form-control" name="pid" ng-model="pid" id="pidInput" required>
                         </div>
                         <div class="col-9">
                             <label for="nameInput">Problem's name</label>
@@ -76,7 +79,7 @@
                         </div>
                         <div class="col-6">
                             <label for="diffInput">Difficulty (0 1 or 2)</label>
-                            <input type="text" class="form-control" name="diff" ng-model="diff" id="diffInput">
+                            <input type="text" class="form-control" name="diff" ng-model="diff" id="diffInput" required>
                         </div>
                     </div>
                     <div style="padding: 10px;">

@@ -13,4 +13,6 @@ router.post('/newprob/preview', admin_controller.preview_problem);
 
 router.get('/deleteallsub', admin_controller.delete_all_submission);
 
+router.get('/submission/:sid', admin_controller.get_submission);
+
 module.exports = router;

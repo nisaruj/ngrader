@@ -26,6 +26,9 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="/problems">Problems</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">Admin</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
@@ -58,7 +61,7 @@
                                     <select class="form-control-sm" name="lang" id="submit-lang">
                                         <% for(var i=0;i<langlist.length;i++) { %>
                                             <option value="<%= langlist[i].id %>" 
-                                                <% if(submitLang == langlist[i].id) { %>
+                                                <% if(submitLang == langlist[i].id || (submitLang == null && langlist[i].id == 10)) { %>
                                                     selected="selected"
                                                 <% } %>
                                                 ><%= langlist[i].name %></option>

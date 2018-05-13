@@ -33,7 +33,7 @@ exports.post_submission = function(req, res, next) {
         }
         const promises = options.map(opt => request(opt));
         Promise.all(promises).then((data) => {
-            console.log(data);
+            //console.log(data);
             var result = '', score = 0, time_avg = 0, mem_avg = 0;
             for (var i=0;i<data.length;i++) {
                 time_avg += parseFloat(data[i].time);
@@ -50,6 +50,8 @@ exports.post_submission = function(req, res, next) {
                 } else result += 'X';
             }
             var new_submission = new Submission({
+                pid: req.params.pid,
+                lang: lang[parseInt(req.body.lang)-1].name,
                 username: req.user ? req.user.username : 'Guest',
                 sourcecode: sourcecode,
                 submit_time: new Date(),
@@ -59,6 +61,11 @@ exports.post_submission = function(req, res, next) {
             new_submission.save(function(err) {
                 if (err) console.log(err);
             });
+            if (score === data.length) {
+                Problem.findOneAndUpdate({pid : req.params.pid}, {$inc : {solved : 1}}, function(err){
+                    if(err) console.log(err);
+                });
+            }
             Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
                 if (err) return console.log(err);
                 res.cookie('submitLang' , req.body.lang)
@@ -93,7 +100,7 @@ exports.post_submission = function(req, res, next) {
                 fs.unlink(req.file.path);
                 //console.log(data);
             });
-            console.log(test_res);
+            //console.log(test_res);
         });
     });
 };
