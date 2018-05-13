@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <title>Ngrader</title>
+        <meta name="description" content="Description of the page less than 150 characters">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../style.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">Ngrader</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/problems">Problems</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <% if (user) { %>
+                                <a class="nav-link" href="/logout"><%= user.username %> <i class="fas fa-sign-out-alt"></i></a>
+                            <% } else { %>
+                                <a class="nav-link" href="/login">Login <i class="fas fa-sign-in-alt"></i></a>
+                            <% } %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#submission">Submissions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#problem">Problems</a>
+                        </li>
+                    </ul>
+                        
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane container active" id="submission">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Submit Time</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Result</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Memory</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(var i=0;i<submission.length;i++) { %>
+                                    <tr>
+                                        <td><%= submission[i].submit_time %></td>
+                                        <td><%= submission[i].username %></td>
+                                        <td><%= submission[i].result.str %></td>
+                                        <td><%= submission[i].result.time.toFixed(3) %></td>
+                                        <td><%= submission[i].result.memory %></td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>  
+                        </div>
+                        <div class="tab-pane container fade" id="problem">
+                            <p>Coming soon!</p>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <div class="col-3">
+                    <div class="submission-box">
+                        <div style="padding:10px;">
+                            <div>
+                                <div class="tab"><a href="/admin/newprob" role="button" class="btn btn-tab">New Problem</a></div>
+                                <div class="tab"><a href="/admin/deleteallsub" role="button" class="btn btn-tab">Delete All Submission</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</html>

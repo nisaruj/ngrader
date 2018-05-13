@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <title>Ngrader</title>
+        <meta name="description" content="Description of the page less than 150 characters">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../style.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">Ngrader</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/problems">Problems</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <% if (user) { %>
+                                <a class="nav-link" href="/logout"><%= user.username %> <i class="fas fa-sign-out-alt"></i></a>
+                            <% } else { %>
+                                <a class="nav-link" href="/login">Login <i class="fas fa-sign-in-alt"></i></a>
+                            <% } %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <h2 style="text-align: center;"><%= content.name %></h2>
+                    <h6 style="text-align: center;">Time Limit: <%= content.time_limit %> seconds</h6>
+                    <h6 style="text-align: center;">Memory Limit: <%= content.memory_limit %> megabytes</h6>
+                    <div class="prob-desc">
+                        <%- content.desc %>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="submission-box">
+                        <div style="padding:10px;">
+                            <div class="submission-header">Submit</div>
+                                <form action="/problems/<%= content.pid %>" method="post" enctype="multipart/form-data" style="padding: 7px;">
+                                    <select class="form-control-sm" name="lang" id="submit-lang">
+                                        <% for(var i=0;i<langlist.length;i++) { %>
+                                            <option value="<%= langlist[i].id %>" 
+                                                <% if(submitLang == langlist[i].id) { %>
+                                                    selected="selected"
+                                                <% } %>
+                                                ><%= langlist[i].name %></option>
+                                        <% } %>
+                                    </select>
+                                    <input type="file" name="submit-file" id="select-file">
+                                    <button type="submit" class="btn btn-cyan" id="submit-button">Submit</button>
+                                </form>  
+                            </div>
+                    </div>
+                    <br>
+                    <div class="submission-box">
+                        <div style="padding:10px;">
+                            <div class="submission-header">Problem tags</div>
+                            <% if (content.tags.length === 1 && content.tags[0] === '') { %>
+                                <p>No problem tag.</p>
+                            <% } else { content.tags.forEach(function(tag) { %>
+                                <a href="#" class="badge badge-green"><%= tag %></a>
+                            <% })} %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Congratz -->
+        <div class="modal fade" id="congratPop" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Result</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <% if (accepted) { %>
+                            Yay! You have passed all test cases!
+                        <% } else { %>
+                            Oh! It's seem like you missed some test cases, try again ;)
+                        <% } %>
+                        <br>Result: <%= result %>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-cyan" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <% if(result) { %>
+        <script type="text/javascript">
+            $(window).on('load',function(){
+                $('#congratPop').modal('show');
+            });
+        </script>
+    <% } %>
+</html>

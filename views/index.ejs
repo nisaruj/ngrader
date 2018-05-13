@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <title>Ngrader</title>
+        <meta name="description" content="Description of the page less than 150 characters">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">Ngrader</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/problems">Problems</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <% if (user) { %>
+                                <a class="nav-link" href="/logout"><%= user.username %> <i class="fas fa-sign-out-alt"></i></a>
+                            <% } else { %>
+                                <a class="nav-link" href="/login">Login <i class="fas fa-sign-in-alt"></i></a>
+                            <% } %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid header">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="header-container">
+                        <h1>CODING IS FUN</h1>
+                        <h3>Practice coding with ngrader</h3>
+                        <br><br>
+                        <p>
+                            Hundreds of problems are waiting for you<br>
+                            to improve your programming skill.<br>
+                            Register now for FREE
+                        </p>
+                        <br><br>
+                        <div>
+                            <a class="btn btn-cyan" href="/login" role="button">Login</a>
+                            <a class="btn btn-cyan" href="/register" role="button">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid gray-block">
+            <div class="container bd1-container">
+                <h2>Supports over 20 programming languages</h2>
+                <p>We use Judge0 API for code compilation that supports a lot of programming languages.
+                   <br>Click <a id='lang-hide-btn'>here</a> to show all supported languages.</p>
+                <div style="padding: 5px;">
+                    <button class="btn btn-gray">C</button>
+                    <button class="btn btn-gray">C++</button>
+                    <button class="btn btn-gray">Java</button>
+                    <button class="btn btn-gray">Python</button>
+                    <button class="btn btn-gray">Ruby</button>
+                </div>
+                <div class="lang-hide">
+                    <button class="btn btn-gray">Basic</button>
+                    <button class="btn btn-gray">C#</button>
+                    <button class="btn btn-gray">JavaScript</button>
+                    <button class="btn btn-gray">Haskell</button>
+                    <button class="btn btn-gray">Pascal</button>
+                </div>
+                <div class="lang-hide">
+                    <button class="btn btn-gray">Rust</button>
+                    <button class="btn btn-gray">OCaml</button>
+                    <button class="btn btn-gray">Erlang</button>
+                    <button class="btn btn-gray">Elixir</button>
+                    <button class="btn btn-gray">Clojure</button>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('.lang-hide').hide();
+        });
+        $('#lang-hide-btn').click(function() { 
+            $('.lang-hide').toggle();
+        });
+    </script>
+</html>

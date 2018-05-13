@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <title>Ngrader</title>
+        <meta name="description" content="Description of the page less than 150 characters">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../css/textangular.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-rangy.min.js'></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-sanitize.min.js'></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular.min.js'></script>
+        <script src='../js/app.js'></script>
+    </head>
+    <body ng-app="myApp">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">Ngrader</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/problems">Problems</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <% if (user) { %>
+                                <a class="nav-link" href="/logout"><%= user.username %> <i class="fas fa-sign-out-alt"></i></a>
+                            <% } else { %>
+                                <a class="nav-link" href="/login">Login <i class="fas fa-sign-in-alt"></i></a>
+                            <% } %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h2 style="text-align: center; padding: 10px;">Create new problem</h2>
+            <form method="post" action="/admin/newprob" autocomplete="off">
+                <div ng-controller="AppCtrl">
+                    <div class="form-row" style="padding:10px">
+                        <div class="col-3">
+                            <label for="pidInput">Problem ID</label>
+                            <input type="text" class="form-control" name="pid" ng-model="pid" id="pidInput">
+                        </div>
+                        <div class="col-9">
+                            <label for="nameInput">Problem's name</label>
+                            <input type="text" class="form-control" name="name" ng-model="name" id="nameInput" ng-change="change()" required>
+                        </div>
+                    </div>
+                    <div class="form-row" style="padding:10px">
+                        <div class="col-6">
+                            <label for="timeInput">Time Limit (s)</label>
+                            <input type="text" class="form-control" name="time_limit" ng-model="time" id="timeInput" ng-change="change()" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="memInput">Memory Limit (MB)</label>
+                            <input type="text" class="form-control" name="memory_limit" ng-model="mem" id="memInput" ng-change="change()" required>
+                        </div>
+                    </div>
+                    <div class="form-row" style="padding:10px">
+                        <div class="col-6">
+                            <label for="tagInput">Tags separated by commas</label>
+                            <input type="text" class="form-control" name="tags" ng-model="tags" id="tagInput" ng-change="change()">
+                        </div>
+                        <div class="col-6">
+                            <label for="diffInput">Difficulty (0 1 or 2)</label>
+                            <input type="text" class="form-control" name="diff" ng-model="diff" id="diffInput">
+                        </div>
+                    </div>
+                    <div style="padding: 10px;">
+                        <p>Description</p>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#editor">Editor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#livepre">Live Preview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#testcase">Test cases</a>
+                            </li>
+                        </ul>
+                        
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane container active" id="editor">
+                                <div text-angular ng-model="htmlVariable" ng-change="change()"></div><br>
+                            </div>
+                            <div class="tab-pane container fade" id="livepre">
+                                <p ng-bind-html="myHTML" style="padding: 10px;"></p>     
+                            </div>
+                            <div class="tab-pane container fade" id="testcase">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Input</p>
+                                        <textarea id="test-input"></textarea>
+                                        <button class="btn btn-cyan" id="addtest" type=button>Add</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <p>Output</p>
+                                        <textarea id="test-output"></textarea>
+                                    </div>
+                                </div>
+                                <div id="faq" role="tablist" aria-multiselectable="true"></div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="desc" ng-value="desc">
+                    </div>
+                    <button type="submit" class="btn btn-cyan" formaction="/admin/newprob" onclick='this.form.target="_self";'>Submit</button>
+                    <button type="submit" class="btn btn-cyan" formaction="/admin/newprob/preview" onclick='this.form.target="_blank";'>Preview</button>
+                </div>
+            </form>
+            <br>
+        </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script>
+        var testCount = 0;
+        $("#addtest").click(function(){
+            $("#faq").append('<div class="card" id="test' + testCount + '"> \
+                                <div class="card-header" role="tab" id="testTab' + testCount + '"> \
+                                <h6 class="card-title"> \
+                                    <a data-toggle="collapse" data-parent="#faq" href="#showTab' + testCount + '" aria-expanded="true" aria-controls="showTab' + testCount + '">' 
+                                        + 'Test case #' + testCount + 
+                                   '</a> \
+                                </h6> \
+                                </div> \
+                                <div id="showTab' + testCount + '" class="collapse" role="tabcard" aria-labelledby="testTab' + testCount + '"> \
+                                    <div class="card-body">' +
+                                        '<pre><b>In:</b><br>' + $("#test-input").val() + '<br><b>Out:</b><br>' + $("#test-output").val() +
+                                    '</pre></div> \
+                                    <button id="delete' + testCount + '" type=button class="btn btn-danger">Delete</button> \
+                                    <input type="hidden" name="test-input[]" id="testin' + testCount + '" value="' + $("#test-input").val() + '"> \
+                                    <input type="hidden" name="test-output[]" id="testout' + testCount + '" value="' + $("#test-output").val() + '"> \
+                                    <script> \
+                                        $("#delete' + testCount + '").click(function(){ \
+                                            $("#test' + testCount + '").remove() \
+                                        }) \
+                                    <\/script>\
+                                </div>');
+            testCount++;
+            $("#test-input").val('');
+            $("#test-output").val('');
+            //console.log($("#test-input").val());
+        });
+    </script>
+</html>
