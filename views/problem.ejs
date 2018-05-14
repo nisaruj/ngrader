@@ -7,8 +7,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
-        <link rel="stylesheet" href="../../style.css">
+        <link rel="stylesheet" href="/style.css">
         <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.min.js'></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/theme/eclipse.css">
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/javascript/javascript.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/clike/clike.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/python/python.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,6 +57,44 @@
                     <h6 style="text-align: center;">Memory Limit: <%= content.memory_limit %> megabytes</h6>
                     <div class="prob-desc">
                         <%- content.desc %>
+                    </div>
+                    <div>
+                        <p>Code Editor</p>
+                        <form method="post" action="/problems/<%= content.pid %>/live">
+                            <select class="form-control-sm" name="lang" id="submit-lang-live">
+                                <% for(var i=0;i<langlist.length;i++) { %>
+                                    <option value="<%= langlist[i].id %>" 
+                                        <% if(submitLang == langlist[i].id || (submitLang == null && langlist[i].id == 10)) { %>
+                                            selected="selected"
+                                        <% } %>
+                                        ><%= langlist[i].name %></option>
+                                <% } %>
+                            </select>
+                            <textarea id="live-editor" name="sourcecode"></textarea>
+                            <script>
+                                var getLang = function(val) {
+                                    if (val >= 4 && val <= 17) return 'cpp';
+                                    else if (val >= 34 && val <= 37) return 'python';
+                                    else return 'javascript';
+                                }
+                                language = getLang($( "#submit-lang-live" ).val());
+                                myeditor = CodeMirror.fromTextArea(document.getElementById("live-editor"), {
+                                    lineNumbers: true,
+                                    matchBrackets: true,
+                                    styleActiveLine: true,
+                                    theme:"eclipse",
+                                    mode: language
+                                });
+                                $('#submit-lang-live').on('change', function() {
+                                    language = getLang(this.value);
+                                    myeditor.setOption("mode", language);
+                                    console.log(language);
+                                })
+                                //myeditor.setOption("mode", language);
+                            </script>
+                            <br>
+                            <button type="submit" class="btn btn-cyan">Submit</button>
+                        </form>
                     </div>
                 </div>
                 <div class="col-3">
@@ -110,13 +155,15 @@
             </div>
         </div>
     </body>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <% if(result) { %>
         <script type="text/javascript">
             $(window).on('load',function(){
                 $('#congratPop').modal('show');
+            });
+            $( "#submit-lang-live" ).change(function() {
+                alert( "Handler for .change() called." );
             });
         </script>
     <% } %>

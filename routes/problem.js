@@ -7,9 +7,13 @@ var upload = multer({dest: 'tmp/'});
 
 router.get('/', problem_controller.get_all_problem);
 
+router.get('/tag/:tag', problem_controller.get_all_problem_with_tag);
+
 router.get('/:pid', problem_controller.get_problem);
 
 router.post('/:pid',upload.single('submit-file'), problem_controller.post_submission);
+
+router.post('/:pid/live', problem_controller.post_submission_live_editor);
 
 router.get('/:pid/clearcookie', function(req, res) {
     res.clearCookie("submitLang")
