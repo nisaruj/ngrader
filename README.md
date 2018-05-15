@@ -4,19 +4,32 @@ The programming judge.
 ## Demo ##
 https://ngrader.herokuapp.com/
 
+## TL;DR ##
+
+```
+git config --global core.longpaths true
+git clone https://github.com/nisaruj/ngrader.git
+npm install
+```
+Then, change configurations in `config.json`<br>
+To start the server, run:
+```
+npm start
+```
+
 ## Getting Started ##
 
 ### Prerequisites ###
-
-<b>Important for window user</b>
-
-- run command `git config --global core.longpaths true ` before clone the repo.
 
 Before running the server, you will need MongoDB Database and Google's recaptcha secret key. If you don't have one, check the links below.
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 - [reCAPTCHA](https://www.google.com/recaptcha)
 
 ### Installing ###
+
+<b>Important for window user:</b>
+run command `git config --global core.longpaths true ` before clone the repo.
+
 
 Change your MongoDB connection_string, secret key for authentication and captcha secret in config.json file (also keep them secret!).
 ```
