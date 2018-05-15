@@ -4,18 +4,17 @@
         <meta charset="utf-8">
         <title>Ngrader</title>
         <meta name="description" content="Description of the page less than 150 characters">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity=
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="#">Ngrader</a>
+            <div class="container navbar-container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>    
+                </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
@@ -28,12 +27,13 @@
                             <a class="nav-link" href="/admin">Admin</a>
                         </li>
                     </ul>
+                      <h1><a class="navbar-logo" href="#">nGrader</a></h1>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
                             <% if (user) { %>
-                                <a class="nav-link" href="/logout"><%= user.username %> <i class="fas fa-sign-out-alt"></i></a>
+                                <a class="nav-link" href="/logout"><%= user.username %></a>
                             <% } else { %>
-                                <a class="nav-link" href="/login">Login <i class="fas fa-sign-in-alt"></i></a>
+                                <a class="nav-link" href="/login">Login</a>
                             <% } %>
                         </li>
                     </ul>
@@ -44,36 +44,40 @@
             <div class="container-fluid">
                 <div class="container">
                     <div class="header-container">
-                        <h1>CODING IS FUN</h1>
-                        <h3>Practice coding with ngrader</h3>
+                      <div class="headerbody">
+                        <h1 class="headertext">Coding is fun</h1>
+                        <h6 class="subheader">Practice coding<br>with nGrader</h6>
+                      </div>
                         <br><br>
-                        <p>
+                        <div class="description">
+                        <p class="descriptiontext">
                             Hundreds of problems are waiting for you<br>
-                            to improve your programming skill.<br>
-                            Register now for FREE
+                            to improve your programming skill.<br><br>
+                            Register now for free :)
                         </p>
                         <br><br>
                         <div>
                             <a class="btn btn-cyan" href="/login" role="button">Login</a>
-                            <a class="btn btn-cyan" href="/register" role="button">Register</a>
+                            <a class="btn btn-cyan secondary" href="/register" role="button">Register</a>
                         </div>
+                      </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="container-fluid gray-block">
             <div class="container bd1-container">
-                <h2>Supports over 20 programming languages</h2>
-                <p>We use Judge0 API for code compilation that supports a lot of programming languages.
-                   <br>Click <a id='lang-hide-btn'>here</a> to show all supported languages.</p>
+                <h4 style="color: black;">Supports over 20 programming languages</h4>
                 <div style="padding: 5px;">
-                    <button class="btn btn-gray">C</button>
-                    <button class="btn btn-gray">C++</button>
-                    <button class="btn btn-gray">Java</button>
-                    <button class="btn btn-gray">Python</button>
-                    <button class="btn btn-gray">Ruby</button>
+                    <img src="c_lang_logo.png" height="50" style="margin: 20px;">
+                    <img src="c++_lang_logo.png" height="50" style="margin: 20px;">
+                    <img src="java_lang_logo.png" height="50" style="margin: 20px;">
+                    <img src="python_lang_logo.png" height="50" style="margin: 20px;">
+                    <img src="ruby_lang_logo.png" height="50" style="margin: 20px;">
                 </div>
-                <div class="lang-hide">
+                <p class="scp">We use Judge0 API for code compilation that<br>supports a lot of programming languages.</p>
+                <a class="btn btn-primary" id="lang-hide-btn">View all supported languages</a>
+                <div class="lang-hide firstline">
                     <button class="btn btn-gray">Basic</button>
                     <button class="btn btn-gray">C#</button>
                     <button class="btn btn-gray">JavaScript</button>
@@ -89,15 +93,24 @@
                 </div>
             </div>
         </div>
+        <div class="bd1-container p3">
+          <h4 style="color: black;">It's open source!</h4>
+          <p class="scp">So check out the repository on GitHub if you<br>
+wanna upgrade your coding skill...</p>
+<a class="btn btn-cyan hoverblack" style="margin-top: 15px;" href="https://github.com/nisaruj/ngrader">I'm in!</a>
+</div>
+<div class="footer">
+  <p class="scp">© 2018 nGrader | Web design by <a href="https://ploypiti.me">Ploypiti P.</a></p>
+</div>
     </body>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.clou dflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $('.lang-hide').hide();
         });
-        $('#lang-hide-btn').click(function() { 
+        $('#lang-hide-btn').click(function() {
             $('.lang-hide').toggle();
         });
     </script>
