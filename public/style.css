@@ -1,29 +1,44 @@
 /*FONTS*/
-h1 {
-  font-family: 'source code pro semibold';
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Lato', sans-serif;
 }
 
-h2,h3,h4,h5,h6 {
-  font-family: 'source code pro';
+body {
+  background-color: #f8f8f8;
 }
 
 p {
-  font-family: 'lato light';
+  font-family: 'Lato', sans-serif;
+}
+
+a {
+  color: var(--smedium);
+}
+
+a:hover {
+  color: var(--smedium);
+}
+
+#homepage h2,h3,h4,h5,h6 {
+  font-family: 'Source Code Pro', monospace;
+}
+
+#homepage h1 {
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 600;
+}
+
+#homepage a {
+  font-family: 'Source Code Pro', monospace;
+  color: white;
+  font-weight: 600;
 }
 
 /*exception*/
 .scp {
-  font-family: 'source code pro';
+  font-family: 'Source Code Pro', monospace;
   margin-bottom: 0;
-}
-
-body {
-    background-color: #f8f8f8;
-}
-
-a {
-  color: white;
-  font-family: 'source code pro semibold';
 }
 
 /*COLORS*/
@@ -49,29 +64,29 @@ a {
   padding: 0px;
 }
 
-.navbar-logo {
+#navbar-logo {
   color: var(--smedium);
   font-size: 20px;
 }
 
-li a {
-  font-family: 'source code pro';
+.navbar li a {
+  font-family: 'Source Code Pro', monospace;
   font-size: 0.85em;
   color: black !important;
 }
 
-li a:hover {
+.navbar li a:hover {
   color: var(--tmedium);
 }
 
-li.active a {
+.navbar li.active a {
   display: inline-block;
   position: relative;
   z-index: 1;
 }
 
 /*border postion*/
-li.active a::before {
+.navbar li.active a::before {
   content: '';
   position: absolute;
   left: 5;
@@ -122,11 +137,11 @@ li.active a::before {
 
 /*desktop-laptop header width*/
 @media screen
-  and (min-device-width: 1000px)
-  and (max-device-width: 1400px) {
+  and (min-device-width: 1080px)
+  and (max-device-width: 1920px) {
     .headerbody {
       text-align: center;
-      width: 315px;
+      width: 345px;
       margin-left: 25%;
     }
 }
@@ -140,7 +155,8 @@ li.active a::before {
 }
 
 .descriptiontext {
-  font-family: 'source code pro semibold';
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 600;
   color: white;
   text-align: left;
   padding-left: 30px;
@@ -150,7 +166,7 @@ li.active a::before {
 
 .btn {
   color: white;
-  font-family: 'source code pro';
+  font-family: 'Source Code Pro', monospace;
   font-size: 0.8em;
   border-radius: 0px;
   transition: 0.3s;
