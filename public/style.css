@@ -64,7 +64,7 @@ a:hover {
   padding: 0px;
 }
 
-#navbar-logo {
+a#navbar-logo {
   color: var(--smedium);
   font-size: 20px;
 }
