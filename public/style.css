@@ -10,6 +10,7 @@ body {
 
 p {
   font-family: 'Lato', sans-serif;
+  font-size: 16px;
 }
 
 a {
@@ -20,13 +21,13 @@ a:hover {
   color: var(--smedium);
 }
 
-#homepage h2,h3,h4,h5,h6 {
-  font-family: 'Source Code Pro', monospace;
-}
-
 #homepage h1 {
   font-family: 'Source Code Pro', monospace;
   font-weight: 600;
+}
+
+#homepage h2,h3,h4,h5,h6 {
+  font-family: 'Source Code Pro', monospace;
 }
 
 #homepage a {
@@ -326,6 +327,7 @@ table {
 .badge-green {
     background-color: #50c3ae;
     color: #fff;
+    font-weight: 300;
 }
 
 .badge-green:hover {

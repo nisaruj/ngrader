@@ -13,6 +13,7 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.min.js'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/codemirror.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/theme/eclipse.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/theme/monokai.min.css">
         <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/javascript/javascript.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/clike/clike.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/python/python.min.js'></script>
@@ -54,8 +55,8 @@
             <div class="row">
                 <div class="col-md-9">
                     <h2 style="text-align: center;"><%= content.name %></h2>
-                    <h6 style="text-align: center;">Time Limit: <%= content.time_limit %> seconds</h6>
-                    <h6 style="text-align: center;">Memory Limit: <%= content.memory_limit %> megabytes</h6>
+                    <p style="text-align: center;">Time Limit: <%= content.time_limit %> seconds<br>
+                    Memory Limit: <%= content.memory_limit %> megabytes</p>
                     <div class="prob-desc">
                         <%- content.desc %>
                     </div>
@@ -83,7 +84,7 @@
                                     lineNumbers: true,
                                     matchBrackets: true,
                                     styleActiveLine: true,
-                                    theme:"eclipse",
+                                    theme:"monokai",
                                     mode: language
                                 });
                                 $('#submit-lang-live').on('change', function() {
