@@ -45,18 +45,18 @@ a:hover {
 /*COLORS*/
 
 :root {
-  /*primary*/
-    --plighter: #ffd368;
-    --pmedium: #ffc937;
-    --pdarker: #e9ab13;
-    /*secondary*/
-    --slighter: #1cb897;
-    --smedium: #11ac8e;
-    --sdarker: #118a75;
-    /*tertiary (overrated word for grayish tone)*/
-    --tlighter: #e6e7e8; /*light gray*/
-    --tmedium: #8c8e90; /*dark gray*/
-    --tdarker: #333333; /*the stylish black*/
+/*primary*/
+  --plighter: #ffd368;
+  --pmedium: #ffc937;
+  --pdarker: #e9ab13;
+  /*secondary*/
+  --slighter: #1cb897;
+  --smedium: #11ac8e;
+  --sdarker: #118a75;
+  /*tertiary (overrated word for grayish tone)*/
+  --tlighter: #e6e7e8; /*light gray*/
+  --tmedium: #8c8e90; /*dark gray*/
+  --tdarker: #333333; /*the stylish black*/
 }
 
 /*NavBar*/
@@ -119,21 +119,21 @@ a:hover {
 }
 
 .header {
-    background-color: var(--pmedium);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 60%;
-    color: black;
+  background-color: var(--pmedium);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 60%;
+  color: black;
 }
 
 .header-container {
-    margin: auto;
-    text-align: center;
-    padding: 10%;
-    padding-bottom: 0px;
-    margin-bottom: 0;
-    width: 80%;
+  margin: auto;
+  text-align: center;
+  padding: 10%;
+  padding-bottom: 0px;
+  margin-bottom: 0;
+  width: 80%;
 }
 
 /*desktop-laptop header width*/
@@ -208,20 +208,20 @@ a:hover {
 }
 
 textarea {
-    width: 100%;
-    height: 100px;
-    font-size: 12px;
+  width: 100%;
+  height: 100px;
+  font-size: 12px;
 }
 
 footer {
-    padding: 20px;
-    height: 100px;
-    margin: auto;
-    background-color: #333;
+  padding: 20px;
+  height: 100px;
+  margin: auto;
+  background-color: #333;
 }
 
 table {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .p3 {
@@ -240,23 +240,23 @@ table {
 }
 
 .gray-block {
-    background-color: #fcfcfc;
+  background-color: #fcfcfc;
 }
 
 .bd1-container {
-    margin: auto;
-    text-align: center;
-    padding: 3rem;
-    color: #666;
-    width: 80%;
+  margin: auto;
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  width: 80%;
 }
 
 .bd1-container p {
-    padding: 10px;
+  padding: 10px;
 }
 
 .primary-color {
-    background-color: #00aa8d;
+  background-color: #00aa8d;
 }
 
 .fb-login {
@@ -264,25 +264,25 @@ table {
 }
 
 .tab {
-    padding: 3px;
+  padding: 3px;
 }
 
 .btn-gray {
-    background-color: #d3d3d3;
-    margin-right: 5px;
-    margin-left: 5px;
-    color: #333;
-    width: 100px;
+  background-color: #d3d3d3;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: #333;
+  width: 100px;
 }
 
 .btn-gray:hover {
-    background-color: #ebebeb;
-    color: #333;
+  background-color: #ebebeb;
+  color: #333;
 }
 
 .lang-hide {
-    padding-top: 5px;
-    padding-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .firstline {
@@ -290,89 +290,94 @@ table {
 }
 
 #lang-hide-btn {
-    color: black;
+  color: black;
 }
 
 .ta-editor {
-    min-height: 300px;
-    height: auto;
-    overflow: auto;
-    font-family: inherit;
-    font-size: 100%;
-    margin:20px 0;
- }
+  min-height: 300px;
+  height: auto;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+  margin:20px 0;
+}
 
 .prob-desc {
-    padding: 10px;
+  padding: 10px;
 }
 
 .submission-box {
-   background-color: #fcfcfc;
-   width: 100%;
-   border: 1px solid #ccc;
-   border-radius: 5px;
+  background-color: #fcfcfc;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .submission-box p {
-    font-weight: 500;
-    font-size: 12px;
-    color: #999;
+  font-weight: 500;
+  font-size: 12px;
+  color: #999;
 }
 
 .submission-header {
-    font-weight: 600;
-    font-size: 15px;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .badge-green {
-    background-color: #50c3ae;
-    color: #fff;
-    font-weight: 300;
+  background-color: #50c3ae;
+  color: white;
+  font-weight: 300;
 }
 
 .badge-green:hover {
-    background-color: #008975;
-    color: #fff;
+  background-color: #008975;
+  color: white;
 }
 
 .example {
-    padding: 7px;
+  padding: 7px;
 }
 
 .example pre {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .example .title {
-    background-color: #e0e0e0;
-    width: 100%;
-    font-weight: 600;
+  background-color: #e0e0e0;
+  width: 100%;
+  font-weight: 600;
 }
 
 .example .data {
-    background-color: #ffffff;
-    width: 100%;
-    padding: 0;
+  background-color: white;
+  width: 100%;
+  padding: 0;
 }
 
 .navpill {
-    border-radius: 5px;
-    font-size: 20px;
-    padding: 5px;
-    width: 100%;
-    background-color: #999;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 5px;
+  width: 100%;
+  background-color: #999;
 }
 
 #submit-lang {
-    width: 100%;
-    padding: 5px;
+  width: 100%;
+  padding: 5px;
 }
 
 #select-file {
-    padding: 5px;
+  padding: 5px;
 }
 
 #submit-button {
-    padding: 5px;
+  padding: 5px;
+}
+
+#editor .btn {
+  color: black;
+  font-family: 'Lato', sans-serif;
 }

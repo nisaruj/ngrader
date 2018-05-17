@@ -97,3 +97,17 @@ exports.get_submission = function(req, res) {
         }
     });
 };
+
+exports.update_avail = function(req, res) {
+    console.log(req.body.avail);
+    const is_avail = new Set(req.body.avail.map(function(num) { return parseInt(num,10); }));
+    Problem.find({},function(err, problem_res) {
+        for (var i=0;i<problem_res.length;i++) {
+            problem_res[i].avail = is_avail.has(i);
+            Problem.update({_id: problem_res[i]._id}, {avail: problem_res[i].avail}, function(err, up_res) {
+                if (err) console.log(err);
+            });
+        }
+        res.redirect('/admin');
+    });
+}

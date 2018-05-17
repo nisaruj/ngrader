@@ -47,16 +47,51 @@
                 <div class="col-9">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#submission">Submissions</a>
+                            <a class="nav-link active" data-toggle="tab" href="#problem">Problems</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#problem">Problems</a>
+                            <a class="nav-link" data-toggle="tab" href="#submission">Submissions</a>
                         </li>
                     </ul>
                         
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane container active" id="submission">
+                        <div class="tab-pane container active" id="problem">
+                            <form method="POST" action="/admin/updateprob">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">pid</th>
+                                            <th scope="col">Problem Name</th>
+                                            <th scope="col">Time Limit</th>
+                                            <th scope="col">Memory Limit</th>
+                                            <th scope="col">Diff</th>
+                                            <th scope="col">Avail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(var i=0;i<problem.length;i++) { %>
+                                        <tr>
+                                            <td><%= problem[i].pid %></td>
+                                            <td><%= problem[i].name %></td>
+                                            <td><%= problem[i].time_limit %></td>
+                                            <td><%= problem[i].memory_limit %></td>
+                                            <td><%= problem[i].difficulty %></td>
+                                            <td>
+                                                <input type="checkbox" name="avail[]" value="<%= problem[i].pid %>"
+                                                <% if (problem[i].avail) { %>
+                                                    checked
+                                                <% } %>
+                                                >
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-cyan hoverblack">Update</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane container fade" id="submission">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -86,39 +121,7 @@
                                 </tbody>
                             </table>  
                         </div>
-                        <div class="tab-pane container fade" id="problem">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">pid</th>
-                                        <th scope="col">Problem Name</th>
-                                        <th scope="col">Time Limit</th>
-                                        <th scope="col">Memory Limit</th>
-                                        <th scope="col">Diff</th>
-                                        <th scope="col">Avail</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% for(var i=0;i<problem.length;i++) { %>
-                                    <tr>
-                                        <td><%= problem[i].pid %></td>
-                                        <td><%= problem[i].name %></td>
-                                        <td><%= problem[i].time_limit %></td>
-                                        <td><%= problem[i].memory_limit %></td>
-                                        <td><%= problem[i].difficulty %></td>
-                                        <td><input type="checkbox" name="avail[]" value="<%= problem[i].pid %>"
-                                            <% if (problem[i].avail) { %>
-                                                checked
-                                            <% } %>
-                                            >
-                                        </td>
-                                    </tr>
-                                    <% } %>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
+                    </div>  
                 </div>
                 <div class="hidden-sm-down col-3">
                     <div class="submission-box">

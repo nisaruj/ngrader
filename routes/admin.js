@@ -5,6 +5,8 @@ var admin_controller = require('../controllers/admin_controller');
 
 router.get('/', admin_controller.get_admin);
 
+router.post('/updateprob', admin_controller.update_avail);
+
 router.get('/newprob', admin_controller.get_new_problem);
 
 router.post('/newprob', admin_controller.post_new_problem);
