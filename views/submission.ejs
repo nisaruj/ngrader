@@ -28,6 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin">Admin</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/custom">Custom</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
@@ -49,7 +52,7 @@
                 <li class="list-group-item">Username: <%= submission.username %></li>
                 <li class="list-group-item">Result: <%= submission.result.str %></li>
                 <li class="list-group-item">Time: <%= submission.result.time.toFixed(3) %> seconds</li>
-                <li class="list-group-item">Memory: <%= submission.result.memory %> bytes</li>
+                <li class="list-group-item">Memory: <%= submission.result.memory %> kilobytes</li>
                 <li class="list-group-item">Submit Time: <%= submission.submit_time %></li>
             </ul>
             <pre><code class="language-javascript"><%= submission.sourcecode %></code></pre>

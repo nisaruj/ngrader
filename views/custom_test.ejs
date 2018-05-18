@@ -18,6 +18,7 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/clike/clike.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.37.0/mode/python/python.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism.min.css">
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,13 +32,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="/problems">Problems</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/admin">Admin</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="/custom">Custom</a>
                         </li>
                     </ul>
@@ -57,15 +58,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <h2 style="text-align: center;"><%= content.name %></h2>
-                    <p style="text-align: center;">Time Limit: <%= content.time_limit %> seconds<br>
-                    Memory Limit: <%= content.memory_limit %> megabytes</p>
-                    <div class="prob-desc">
-                        <%- content.desc %>
-                    </div>
+                    <h2 style="text-align: center;">Custom Test</h2>
                     <div>
                         <p>Code Editor</p>
-                        <form method="post" action="/problems/<%= content.pid %>/live">
+                        <form method="post" action="/custom/live">
                             <select class="form-control-sm" name="lang" id="submit-lang-live">
                                 <% for(var i=0;i<langlist.length;i++) { %>
                                     <option value="<%= langlist[i].id %>" 
@@ -98,15 +94,31 @@
                                 //myeditor.setOption("mode", language);
                             </script>
                             <br>
+                            <p>Input</p>
+                            <textarea name="input"></textarea>
+                            <br><br>
                             <button type="submit" class="btn btn-cyan hoverblack">Submit</button>
                         </form>
+                        <br>
+                        <% if (result) { %>
+                            <div class="submission-box">
+                                <pre>Source code:</pre>
+                                <pre><code class="language-javascript"><%= request.sourcecode %></code></pre>
+                                <pre>Input:</pre>
+                                <pre style="background-color: #f5f2f0;"><%= request.stdin %></pre>
+                                <pre>Output:</pre>
+                                <pre style="background-color: #f5f2f0;"><%= result.stdout %></pre>
+                                <pre>Time: <%= result.time %> seconds</pre>
+                                <pre>Memory: <%= result.memory %> kilobytes</pre>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
                 <div class="hidden-sm-down col-md-3">
                     <div class="submission-box">
                         <div style="padding:10px;">
                             <div class="submission-header">Submit</div>
-                                <form action="/problems/<%= content.pid %>" method="post" enctype="multipart/form-data" style="padding: 7px;">
+                                <form action="/custom" method="post" enctype="multipart/form-data" style="padding: 7px;">
                                     <select class="form-control-sm" name="lang" id="submit-lang">
                                         <% for(var i=0;i<langlist.length;i++) { %>
                                             <option value="<%= langlist[i].id %>" 
@@ -120,41 +132,7 @@
                                     <button type="submit" class="btn btn-cyan hoverblack" id="submit-button">Submit</button>
                                 </form>  
                             </div>
-                    </div>
-                    <br>
-                    <div class="submission-box">
-                        <div style="padding:10px;">
-                            <div class="submission-header">Problem tags</div>
-                            <% if (content.tags.length === 1 && content.tags[0] === '') { %>
-                                <p>No problem tag.</p>
-                            <% } else { content.tags.forEach(function(tag) { %>
-                                <a href="#" class="badge badge-green"><%= tag %></a>
-                            <% })} %>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Congratz -->
-        <div class="modal fade" id="congratPop" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Result</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <% if (accepted) { %>
-                            Yay! You have passed all test cases!
-                        <% } else { %>
-                            Oh! It's seem like you missed some test cases, try again ;)
-                        <% } %>
-                        <br>Result: <%= result %>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-cyan hoverblack" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -162,11 +140,6 @@
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <% if(result) { %>
-        <script type="text/javascript">
-            $(window).on('load',function(){
-                $('#congratPop').modal('show');
-            });
-        </script>
-    <% } %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/prism.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </html>
