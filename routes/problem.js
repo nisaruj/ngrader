@@ -9,6 +9,8 @@ router.get('/', problem_controller.get_all_problem);
 
 router.get('/tag/:tag', problem_controller.get_all_problem_with_tag);
 
+router.get('/diff/:diff', problem_controller.get_all_problem_with_diff);
+
 router.get('/:pid', problem_controller.get_problem);
 
 router.post('/:pid',upload.single('submit-file'), problem_controller.post_submission);

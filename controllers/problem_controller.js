@@ -23,6 +23,15 @@ exports.get_all_problem_with_tag = function(req, res) {
     });
 };
 
+exports.get_all_problem_with_diff = function(req, res) {
+    Problem.find({avail: true, difficulty: parseInt(req.params.diff)}, function(err,problem) {
+        if (err) {
+            console.log(err);
+        }
+        res.render('problemlist', {user:req.user, problem: problem});
+    });
+};
+
 exports.get_problem = function(req, res) {
     Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
         if (err) return console.log(err);
