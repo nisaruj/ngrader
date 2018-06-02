@@ -53,6 +53,7 @@ In case you use Heroku, add config variables in settings tab.
 
 ## TODO ##
 
+[ ] Fix page responsive
 
 ## Dependencies ##
 - body-parser 1.18.2
