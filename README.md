@@ -1,5 +1,5 @@
 # ngrader
-The programming judge.
+The programming judge using Judge0 API.
 
 ## Demo ##
 https://ngrader.herokuapp.com/
@@ -22,9 +22,8 @@ npm start
 
 ### Prerequisites ###
 
-Before running the server, you will need MongoDB Database and Google's recaptcha secret key. If you don't have one, check the links below.
+Before running the server, you will need MongoDB Database ~~and Google's recaptcha secret key~~. If you don't have one, check the links below.
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- [reCAPTCHA](https://www.google.com/recaptcha)
 
 ### Installing ###
 
@@ -32,12 +31,10 @@ Before running the server, you will need MongoDB Database and Google's recaptcha
 run command `git config --global core.longpaths true ` before clone the repo.
 
 
-Change your MongoDB connection_string, secret key for authentication and captcha secret in config.json file (also keep them secret!).
+Change your MongoDB connection_string, secret key for authentication ~~and captcha secret~~ in config.json file (also keep them secret!).
 ```
 "connection_string": "YOUR_DATABASE_URI_STRING",
-...
 "session_secret": "YOUR_SESSION_SECRET",
-"captcha_secret": "YOUR_reCAPTCHA_SECRET"
 ```
 Then just run `npm start ` yay! :smiley:
 <br><br>
@@ -48,22 +45,28 @@ In case you use Heroku, add config variables in settings tab.
 | Config Vars    | Value                       |
 | -------------- | --------------------------- |
 | DB_STR         | database connection string  |
-| CPT_SECRET     | reCAPTCHA secret            |
 | SESSION_SECRET | authentication secret       |
 
 ## TODO ##
 
-[ ] Fix page responsive
+- [ ] Fix homepage responsiveness
+- [ ] Redesign problem list page
 
 ## Dependencies ##
-- body-parser 1.18.2
-- ejs 2.5.7
-- express 4.16.2
-- mongoose 5.0.2
-- multer 1.3.0
-- express-session 1.15.6
-- passport-local-mongoose 5.0.0
-- express-recaptcha 4.0.2
+- body-parser: 1.18.2
+- cookie-parser: 1.4.3
+- ejs: 2.6.1
+- express: 4.16.3
+- express-session: 1.15.6
+- mongoose: 5.0.18
+- multer: 1.3.0
+- passport: 0.4.0
+- passport-local-mongoose: 5.0.0
+- request: 2.85.0
+- request-promise: 4.2.2
+
+## Special Thanks ##
+- [Judge0 API](https://api.judge0.com/) - The opensource web API for code compilation and execution.
 
 ## Team ##
 - [Nisaruj Rattanaaram](https://github.com/nisaruj)
