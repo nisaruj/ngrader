@@ -1,8 +1,8 @@
 {
     "server_port": 8080,
     "using_connection_string": true,
-    "connection_string": "mongodb://nisaruj:HI8CCecuoLSgcMZS@cluster0-shard-00-00-6axhl.mongodb.net:27017,cluster0-shard-00-01-6axhl.mongodb.net:27017,cluster0-shard-00-02-6axhl.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin",
+    "connection_string": "YOUR_CONNECTION_STRING",
     "db_user": "YOUR_DATABASE_USERNAME",
     "db_pass": "YOUR_DATABASE_PASSWORD",
-    "session_secret": "keyboard cat"
+    "session_secret": "SESSION_SECRET"
 }
