@@ -32,7 +32,11 @@ footer {
     background-color: var(--tdarker);
     color: white;
     text-align: center;
-    display: block;
+}
+
+#logo {
+    width: 102px;
+    height: 35px;
 }
 
 /* Navbar */
@@ -73,11 +77,13 @@ footer {
     color: var(--pdarker);
 }
 
+/* Homepage */
+
 .header {
     background-color: var(--pmedium);
     position: relative;
     padding: 50px;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 61px);
 }
 
 .header-body {
@@ -111,6 +117,7 @@ footer {
 
 .desc-text {
     color: white;
+    font-size: 1.5vw;
 }
 
 #console-bg {
@@ -245,8 +252,11 @@ footer {
     #console-bar {
         width: 80%;
     }
+    .header-body h1 {
+        font-size: 6vw;
+    }
     .desc-text {
-        font-size: 10px;
+        font-size: 3vw;
     }
     .btn {
         width: 100%;
@@ -255,18 +265,11 @@ footer {
 }
 
 @media only screen and (max-width: 670px) {
-    .header-body h1 {
-        font-size: 20px;
-        font-weight: 600;
-    }
     #console-bg {
         width: 80%;
     }
     #console-bar {
         width: 80%;
-    }
-    .desc-text {
-        font-size: 10px;
     }
     .btn {
         width: 100%;
