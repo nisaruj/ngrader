@@ -1,10 +1,12 @@
 # ngrader
+![nGrader logo](https://raw.githubusercontent.com/nisaruj/ngrader/master/public/images/ngrader.png)
+
 The programming judge using Judge0 API.
 
-## Demo ##
+## Demo
 https://ngrader.herokuapp.com/
 
-## TL;DR ##
+## TL;DR
 
 ```
 git config --global core.longpaths true
@@ -18,14 +20,14 @@ To start the server, run:
 npm start
 ```
 
-## Getting Started ##
+## Getting Started
 
-### Prerequisites ###
+### Prerequisites
 
 Before running the server, you will need MongoDB Database ~~and Google's recaptcha secret key~~. If you don't have one, check the links below.
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
-### Installing ###
+### Installing
 
 <b>Important for window user:</b>
 run command `git config --global core.longpaths true ` before clone the repo.
@@ -47,12 +49,12 @@ In case you use Heroku, add config variables in settings tab.
 | DB_STR         | database connection string  |
 | SESSION_SECRET | authentication secret       |
 
-## TODO ##
+## TODO
 
-- [ ] Fix homepage responsiveness
+- [x] Fix homepage responsiveness
 - [ ] Redesign problem list page
 
-## Dependencies ##
+## Dependencies
 - body-parser: 1.18.2
 - cookie-parser: 1.4.3
 - ejs: 2.6.1
@@ -65,9 +67,9 @@ In case you use Heroku, add config variables in settings tab.
 - request: 2.85.0
 - request-promise: 4.2.2
 
-## Special Thanks ##
+## Special Thanks
 - [Judge0 API](https://api.judge0.com/) - The opensource web API for code compilation and execution.
 
-## Team ##
+## Team
 - [Nisaruj Rattanaaram](https://github.com/nisaruj)
 - [Ploypiti Piyaprapan](https://github.com/ploypiti)
