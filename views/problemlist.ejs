@@ -6,44 +6,45 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Description of the page less than 150 characters">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Source+Code+Pro" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
-        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="#">Ngrader</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>    
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/problems">Problems</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin">Admin</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/custom">Custom</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <% if (user) { %>
-                                <a class="nav-link" href="/logout"><%= user.username %> <i class="fas fa-sign-out-alt"></i></a>
-                            <% } else { %>
-                                <a class="nav-link" href="/login">Login <i class="fas fa-sign-in-alt"></i></a>
-                            <% } %>
-                        </li>
-                    </ul>
-                </div>
+        <nav class="navbar navbar-default navbar-expand-md justify-content-between">
+            <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target=".dual-nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse dual-nav w-100">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link pl-0" href="/">Home <span class="sr-only">Home</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/problems">Problems</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/custom">Custom</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-none d-sm-block"><a href="/" class="navbar-brand mx-auto d-block text-center w-100">nGrader</a></div>
+            <div class="navbar-collapse collapse dual-nav w-100">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <% if (user) { %>
+                            <a class="nav-link" href="/logout"><%= user.username %> <i class="fas fa-sign-out-alt"></i></a>
+                        <% } else { %>
+                            <a class="nav-link" href="/login">Login <i class="fas fa-sign-in-alt"></i></a>
+                        <% } %>
+                    </li>
+                </ul>
             </div>
         </nav>
+        <br>
         <div class="container">
             <div class="row">
                 <div class="col-md-9 col-xs-12">
@@ -63,7 +64,7 @@
                                 <td><a href="/problems/<%= problem[i].pid %>"><%= problem[i].name %></a></td>
                                 <td>
                                     <% for(var j=0;j<problem[i].tags.length;j++) { %>
-                                        <a href="/problems/tag/<%= problem[i].tags[j].replace(' ','_') %>" class="badge badge-green"><%= problem[i].tags[j] %></a>
+                                        <a href="/problems/tag/<%= problem[i].tags[j].replace(' ','_') %>" class="badge badge-default"><%= problem[i].tags[j] %></a>
                                     <% } %>
                                 </td>
                                 <td><%= problem[i].solved %></td>
@@ -73,21 +74,21 @@
                     </table>  
                 </div>
                 <div class="col-md-3 col-xs-12">
-                    <div class="submission-box">
+                    <div class="side-box">
                         <div style="padding:10px;">
                             <div>
-                                <div class="tab"><a href="/problems" role="button" class="btn btn-cyan hoverblack" style="width: 100%;color: white;">All</a></div>
-                                <div class="tab"><a href="/problems/diff/0" role="button" class="btn btn-cyan hoverblack" style="width: 100%;color: white;">Beginner</a></div>
-                                <div class="tab"><a href="/problems/diff/1" role="button" class="btn btn-cyan hoverblack" style="width: 100%;color: white;">Intermediate</a></div>
-                                <div class="tab"><a href="/problems/diff/2" role="button" class="btn btn-cyan hoverblack" style="width: 100%;color: white;">Professional</a></div>
+                                <div class="tab"><a href="/problems" role="button" class="btn btn-secondary tab">All</a></div>
+                                <div class="tab"><a href="/problems/diff/0" role="button" class="btn btn-secondary tab">Beginner</a></div>
+                                <div class="tab"><a href="/problems/diff/1" role="button" class="btn btn-secondary tab">Intermediate</a></div>
+                                <div class="tab"><a href="/problems/diff/2" role="button" class="btn btn-secondary tab">Professional</a></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    </html>
+</html>

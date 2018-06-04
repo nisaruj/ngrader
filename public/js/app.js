@@ -20,7 +20,7 @@ app.controller('AppCtrl', function($scope) {
         <li>Math equation? You can do too.  \\(\\sum_{i=1}^{n} i^2 = {n(n+1)(2n+1) \\over 6}\\) <a href=\"https://en.wikibooks.org/wiki/LaTeX/Mathematics\" target=\"_blank\">Unfamiliar with LaTeX?</a></li> \
     </ul> \
     <p>This problem is an easy one: given integer <b>a</b> and <b>b</b>, calculate <b>a+b</b>.</p> \
-    <p><b>Input</b><br>The first line of input contains two integers, \\(a\\) and \\(b\\) \\((|a|, |b| &lt;= 10^9)\\)</p> \
+    <p><b>Input</b><br>The first line of input contains two integers, \\(a\\) and \\(b\\) \\((|a|, |b| \\leqslant 10^9)\\)</p> \
     <p><b>Output</b><br>One integer — the result of a+b.</p> \
     <p><b>Example</b></p> \
     <div class=\"example\"> \
