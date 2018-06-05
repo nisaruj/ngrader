@@ -27,11 +27,17 @@ a:hover {
     color: var(--sdarker);
 }
 
+h2 {
+    padding: 10px;
+}
+
 footer {
+    font-family: 'Source Code Pro', monospace;
     padding: 10px;
     background-color: var(--tdarker);
     color: white;
     text-align: center;
+    font-size: 13px;
 }
 
 #logo {
@@ -192,6 +198,7 @@ footer {
 
 .btn-primary:hover {
     background-color: var(--pdarker);
+    border-color: var(--pmedium);
 }
 
 .btn-secondary {
@@ -202,6 +209,7 @@ footer {
 
 .btn-secondary:hover {
     background-color: var(--sdarker);
+    border-color: var(--smedium);
 }
 
 .tab {
@@ -218,6 +226,39 @@ footer {
 }
 
 /* Problem */
+
+.problem-name {
+    font-size: 22px;
+    padding: 10px 0;
+    font-weight: 600;
+}
+
+.problem-box {
+    margin: 15px 0;
+    background-color: #f9f9f9;
+    padding: 20px 5px;
+    padding-left: 30px;
+    border-left-style: solid;
+    border-left-color: gray;
+    border-left-width: 5px;
+    position: relative;
+}
+
+.problem-box:hover {
+    background-color: #f2f2f2;
+}
+
+.solved-count {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.solve-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    color: white;
+}
 
 .example {
     padding: 7px;
@@ -251,6 +292,12 @@ footer {
     width: 100%;
 }
 
+@media only screen and (max-width: 375px) {
+    .solve-btn {
+        position: static;
+    }
+}
+
 @media only screen and (max-width: 865px) {
     #console-bg {
         width: 80%;
@@ -264,7 +311,7 @@ footer {
     .desc-text {
         font-size: 3vw;
     }
-    .btn {
+    .homepage .btn {
         width: 100%;
         margin: 5px;
     }
@@ -277,7 +324,7 @@ footer {
     #console-bar {
         width: 80%;
     }
-    .btn {
+    .homepage .btn {
         width: 100%;
         margin: 5px;
     }

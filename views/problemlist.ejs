@@ -49,6 +49,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9 col-xs-12">
+                    <!--
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -72,24 +73,75 @@
                             </tr>
                             <% } %>
                         </tbody>
-                    </table>  
+                    </table>
+                    -->
+                    <h2>Problems</h2>
+                    <p><i class="fas fa-square" style="color: #2dc937"> Easy </i>&nbsp;&nbsp;<i class="fas fa-square" style="color: #e7b416"> Medium </i>&nbsp;&nbsp;<i class="fas fa-square" style="color: #cc3232"> Hard</i></p>
+                    <div id="problem-list">
+                        
+                    </div>  
                 </div>
                 <div class="col-md-3 col-xs-12">
                     <div class="side-box">
                         <div style="padding:10px;">
                             <div>
-                                <div class="tab"><a href="/problems" role="button" class="btn btn-secondary tab">All</a></div>
-                                <div class="tab"><a href="/problems/diff/0" role="button" class="btn btn-secondary tab">Beginner</a></div>
-                                <div class="tab"><a href="/problems/diff/1" role="button" class="btn btn-secondary tab">Intermediate</a></div>
-                                <div class="tab"><a href="/problems/diff/2" role="button" class="btn btn-secondary tab">Professional</a></div>
+                                <div class="tab"><button class="btn btn-secondary tab" id="filter-all">All</button></div>
+                                <div class="tab"><button class="btn btn-secondary tab" id="filter-easy">Beginner</button></div>
+                                <div class="tab"><button class="btn btn-secondary tab" id="filter-medium">Intermediate</button></div>
+                                <div class="tab"><button class="btn btn-secondary tab" id="filter-hard">Professional</button></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <footer>
+            <p>© 2018 nGrader<br>If you have any suggestions, please contact nisaruj@hotmail.com</p>
+        </footer>
     </body>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let problemList;
+            let showProblem = function(res) {
+                let html = '';
+                const diff_color = ['#2dc937', '#e7b416', '#cc3232'];
+                res.forEach(function(e) {
+                    html += '<div class="problem-box" style="border-left-color: ' + diff_color[e.difficulty] + '">'
+                    html += '<a class="problem-name" href="/problems/' + e.pid + '">' + e.name + '</a><div class="badge-group">';
+                    e.tags.forEach(function(tag) {
+                        html += '<a href="/problems/tag/' + tag.replace(' ','_') + '" class="badge badge-default">' + tag + '</a> '
+                    })
+                    html += '</div><div class="solved-count">Solved <i class="far fa-check-circle"></i> <b>' + e.solved + '</b></div>';
+                    html += '<div class="solve-btn"><a role="button" class="btn btn-primary" href="/problems/' + e.pid + '">' + "Let's solve" + '</a></div>';
+                    html += '</div>'
+                })
+                $('#problem-list').html(html);
+            }
+            $.getJSON('/api/problems', function(res) {
+                problemList = res;
+                showProblem(res);
+            })
+            $('#filter-all').on('click', function() {
+                showProblem(problemList);
+            })
+            $('#filter-easy').on('click', function() {
+                showProblem(problemList.filter(function(e) {
+                    return e.difficulty === 0;
+                }))
+            })
+            $('#filter-medium').on('click', function() {
+                showProblem(problemList.filter(function(e) {
+                    return e.difficulty === 1;
+                }))
+            })
+            $('#filter-hard').on('click', function() {
+                showProblem(problemList.filter(function(e) {
+                    return e.difficulty === 2;
+                }))
+            })
+        });
+    </script>
 </html>

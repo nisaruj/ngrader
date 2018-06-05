@@ -42,7 +42,9 @@ app.set('view engine','ejs');
 var index_route = require('./routes/index');
 var admin_route = require('./routes/admin');
 var problem_route = require('./routes/problem');
+var api_route = require('./routes/api');
 
 app.use('/', index_route);
 app.use('/admin', admin_route);
 app.use('/problems', problem_route);
+app.use('/api', api_route);
