@@ -27,7 +27,7 @@ exports.post_new_problem = function(req, res) {
     //if (req.user && req.user.permission === 'admin') {
         //console.log(req.body);
         if (!req.body.hasOwnProperty('test-input')) {
-            return res.send('Empty test case.')
+            res.render('error', {user: req.user, message: 'Empty testcase'});
         }
         testcases = []
         for (var i=0;i<req.body['test-input'].length;i++) {
@@ -52,14 +52,13 @@ exports.post_new_problem = function(req, res) {
         });
         Problem.find({pid: req.body.pid}, function(err, pr) {
             if (pr.length) {
-                res.send('This pid is already exist.');
+                res.render('error', {user: req.user, message: 'This pid is already exist. Try to fill another pid.'});
             } else {
                 new_prob.save(function(err) {
                     new_test.save(function(err) {
                         if (err) {
-                            console.log('Something went wrong. Try again later.');
                             console.log(err);
-                            res.send('<pre>Something went wrong. Try again later.</pre>');
+                            res.render('error', {user: req.user, message: 'Something went wrong. Try again later.'});
                         } else {
                             console.log('Saved problem successfully');
                             res.redirect('/admin');
@@ -93,7 +92,7 @@ exports.get_submission = function(req, res) {
         if (sub_res) {
             res.render('submission', {user: req.user, submission: sub_res});
         } else {
-            res.send('Submission not found.');
+            res.render('error', {user: req.user, message: 'Submission not found.'});
         }
     });
 };

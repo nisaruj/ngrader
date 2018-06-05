@@ -245,6 +245,12 @@ footer {
     margin: 5px 0;
 }
 
+/* Admin */
+
+#test-input, #test-output {
+    width: 100%;
+}
+
 @media only screen and (max-width: 865px) {
     #console-bg {
         width: 80%;

@@ -35,6 +35,9 @@ exports.get_all_problem_with_diff = function(req, res) {
 exports.get_problem = function(req, res) {
     Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
         if (err) return console.log(err);
+        if (!prob_res) {
+            res.render('error', {user: req.user, message: 'Problem not found. Maybe <code>avail</code> was set to <code>false</code>.'});
+        }
         res.render('problem', {user: req.user, content: prob_res, result: null, accepted: null, submitLang: req.cookies.submitLang, langlist: lang});
     });
 };
