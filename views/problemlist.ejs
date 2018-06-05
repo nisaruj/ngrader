@@ -49,6 +49,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9 col-xs-12">
+                    <h2>Problems</h2>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p><i class="fas fa-square" style="color: #2dc937"> Easy </i>&nbsp;&nbsp;<i class="fas fa-square" style="color: #e7b416"> Medium </i>&nbsp;&nbsp;<i class="fas fa-square" style="color: #cc3232"> Hard</i></p>
+                        </div>
+                        <div style="font-size: 20px;">
+                            <i class="fas fa-th-large" id="toggle-grid"></i>&nbsp;&nbsp;&nbsp;<i class="fas fa-list" style="color: gray;" id="toggle-list"></i>
+                        </div>
+                    </div>
                     <!--
                     <table class="table table-hover">
                         <thead>
@@ -75,9 +84,10 @@
                         </tbody>
                     </table>
                     -->
-                    <h2>Problems</h2>
-                    <p><i class="fas fa-square" style="color: #2dc937"> Easy </i>&nbsp;&nbsp;<i class="fas fa-square" style="color: #e7b416"> Medium </i>&nbsp;&nbsp;<i class="fas fa-square" style="color: #cc3232"> Hard</i></p>
                     <div id="problem-list">
+                        
+                    </div> 
+                    <div id="problem-grid">
                         
                     </div>  
                 </div>
@@ -105,6 +115,7 @@
     <script>
         $(document).ready(function() {
             let problemList;
+            $('#problem-list').hide();
             let showProblem = function(res) {
                 let html = '';
                 const diff_color = ['#2dc937', '#e7b416', '#cc3232'];
@@ -118,7 +129,20 @@
                     html += '<div class="solve-btn"><a role="button" class="btn btn-primary" href="/problems/' + e.pid + '">' + "Let's solve" + '</a></div>';
                     html += '</div>'
                 })
-                $('#problem-list').html(html);
+                $('#problem-grid').html(html);
+                let htmlListView = '<table class="table table-hover"><thead><tr><th scope="col">#</th><th scope="col">Problem Name</th><th scope="col">Tags</th> \
+                                <th scope="col">Solved</th></tr></thead><tbody>';
+                res.forEach(function(e) {
+                    htmlListView += '<tr><th scope="row" style="color: ' + diff_color[e.difficulty] + '">' + e.pid + '</th>'
+                    htmlListView += '<td><a href="/problems/' + e.pid + '">' + e.name + '</a></td><td>';
+                    e.tags.forEach(function(tag) {
+                        htmlListView += '<a href="/problems/tag/' + tag.replace(' ','_') + '" class="badge badge-default">' + tag + '</a> '
+                    })
+                    htmlListView += '</td><td>' + e.solved
+                    htmlListView += '</td></tr>'
+                })
+                htmlListView += '</tbody></table>'
+                $('#problem-list').html(htmlListView);
             }
             $.getJSON('/api/problems', function(res) {
                 problemList = res;
@@ -141,6 +165,18 @@
                 showProblem(problemList.filter(function(e) {
                     return e.difficulty === 2;
                 }))
+            })
+            $('#toggle-grid').on('click', function() {
+                $('#problem-grid').show();
+                $('#problem-list').hide();
+                $('#toggle-grid').css("color", "black");
+                $('#toggle-list').css("color", "gray");
+            })
+            $('#toggle-list').on('click', function() {
+                $('#problem-grid').hide();
+                $('#problem-list').show();
+                $('#toggle-grid').css("color", "gray");
+                $('#toggle-list').css("color", "black");
             })
         });
     </script>

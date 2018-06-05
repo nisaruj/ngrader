@@ -314,7 +314,7 @@ footer {
         font-size: 6vw;
     }
     .desc-text {
-        font-size: 3vw;
+        font-size: 2vw;
     }
     .homepage .btn {
         width: 100%;
@@ -324,9 +324,15 @@ footer {
 
 @media only screen and (max-width: 670px) {
     #console-bg {
-        width: 80%;
+        width: 100%;
     }
     #console-bar {
+        width: 100%;
+    }
+    .desc-text {
+        font-size: 2.5vw;
+    }
+    .header-desc {
         width: 80%;
     }
     .homepage .btn {
