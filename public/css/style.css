@@ -212,6 +212,11 @@ footer {
     border-color: var(--smedium);
 }
 
+.btn-tweet {
+    background-color: #08a0e9;
+    color: white !important;
+}
+
 .tab {
     width: 100%;
     margin-bottom: 3px;

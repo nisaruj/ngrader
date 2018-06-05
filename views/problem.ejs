@@ -155,7 +155,10 @@
                         <br>Result: <%= result %>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <% if (accepted) { %>
+                                <a role="button" class="btn btn-tweet" href="https://twitter.com/intent/tweet?text=I've passed the programming challenge [<%= content.name %>] in nGrader, an open source programming judge. Let's try to solve this problem at https://ngrader.herokuapp.com/problems/<%= content.pid %>" target="_blank"><i class="fab fa-twitter"></i> Tweet</a>
+                            <% } %>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
