@@ -265,6 +265,17 @@ footer {
     color: white;
 }
 
+.ignore-btn {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    color: gray;
+}
+
+.ignore-btn:hover {
+    color: black;
+}
+
 .example {
     padding: 7px;
 }

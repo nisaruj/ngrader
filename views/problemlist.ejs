@@ -118,15 +118,17 @@
             $('#problem-list').hide();
             let showProblem = function(res) {
                 let html = '';
+                let count = 0;
                 const diff_color = ['#2dc937', '#e7b416', '#cc3232'];
                 res.forEach(function(e) {
-                    html += '<div class="problem-box" style="border-left-color: ' + diff_color[e.difficulty] + '">'
+                    html += '<div class="problem-box" style="border-left-color: ' + diff_color[e.difficulty] + ';" id="box-' + count + '">'
                     html += '<a class="problem-name" href="/problems/' + e.pid + '">' + e.name + '</a><div class="badge-group">';
                     e.tags.forEach(function(tag) {
                         html += '<a href="/problems/tag/' + tag.replace(' ','_') + '" class="badge badge-default">' + tag + '</a> '
                     })
                     html += '</div><div class="solved-count">Solved <i class="far fa-check-circle"></i> <b>' + e.solved + '</b></div>';
                     html += '<div class="solve-btn"><a role="button" class="btn btn-primary" href="/problems/' + e.pid + '">' + "Let's solve" + '</a></div>';
+                    html += '<div class="ignore-btn" id="ignore-' + count++ + '">x</div>'
                     html += '</div>'
                 })
                 $('#problem-grid').html(html);
@@ -177,6 +179,10 @@
                 $('#problem-list').show();
                 $('#toggle-grid').css("color", "gray");
                 $('#toggle-list').css("color", "black");
+            })
+            $(document).on('click', '.ignore-btn', function() {
+                $('#box-' + this.id.substring(7)).hide();
+                console.log('#box-' + this.id.substring(7));
             })
         });
     </script>
