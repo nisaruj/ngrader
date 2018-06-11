@@ -10,7 +10,6 @@
         <link href="https://fonts.googleapis.com/css?family=Lato|Source+Code+Pro" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism.min.css">
     </head>
     <body>
         <nav class="navbar navbar-default navbar-expand-md justify-content-between">
@@ -25,13 +24,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/problems">Problems</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/admin">Admin</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/custom">Custom</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/api">APIs</a>
                     </li>
                 </ul>
@@ -51,23 +50,75 @@
         </nav>
         <br>
         <div class="container">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Submission ID: <%= submission._id %></li>
-                <li class="list-group-item">pid: <%= submission.pid %></li>
-                <li class="list-group-item">Language: <%= submission.lang %></li>
-                <li class="list-group-item">Username: <%= submission.username %></li>
-                <li class="list-group-item">Result: <%= submission.result.str %></li>
-                <li class="list-group-item">Time: <%= submission.result.time.toFixed(3) %> seconds</li>
-                <li class="list-group-item">Memory: <%= submission.result.memory %> kilobytes</li>
-                <li class="list-group-item">Submit Time: <%= submission.submit_time %></li>
-            </ul>
-            <pre><code class="language-javascript"><%= submission.sourcecode %></code></pre>
-        </div> 
+            <h2>APIs usage</h2>
+            <p> <span class="api-info"><i class="fas fa-angle-double-right"></i> Get problems</span></p>
+            <div class="api-desc">
+                <p>
+                    Return information (pid, tags, name, difficulty, solved) of all available problems.<br>
+                    <b>Method:</b> <code><b>GET</b></code><br>
+                    <b>URI:</b> <a href="/api/problems" target="_blank">/api/problems</a><br>
+                    <b>Success response:</b><br>
+                    <pre class="code-block">
+
+    Code: 200
+    [
+        {
+            "tags": [
+                "implementation"
+            ],
+            "pid": 0,
+            "name": "Hello ngrader",
+            "difficulty": 0,
+            "solved": 8
+        },
+        {
+            "tags": [
+                "implementation",
+                "string"
+            ],
+            "pid": 1,
+            "name": "Let's Count!",
+            "difficulty": 0,
+            "solved": 2
+        }
+    ]
+                    </pre>
+                </p>
+            </div>
+
+            <p> <span class="api-info"><i class="fas fa-angle-double-right"></i> Submit custom test</span></p>
+            <div class="api-desc">
+                <p>
+                    Complie requested source code and return stdout, time and memory used.<br>
+                    <b>Method:</b> <code><b>POST</b></code><br>
+                    <b>URI:</b> <a href="#">/api/submit/custom</a><br>
+                    <b>Request example:</b><br>
+                    <pre class="code-block">
+
+    {
+        "sourcecode": "n=int(input());print(n**2)",
+        "lang": "34",
+        "input": "5"
+    }
+                    </pre>
+                    <b>Success response:</b><br>
+                    <pre class="code-block">
+
+    Code: 200
+    {
+        "stdout": "25\n",
+        "time": "0.02",
+        "memory": 3048
+    }
+                    </pre>
+                </p>
+            </div>
+        </div>
+        <footer>
+            <p>© 2018 nGrader<br>If you have any suggestions, please contact nisaruj@hotmail.com</p>
+        </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/prism.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    
 </html>

@@ -188,7 +188,7 @@ exports.get_custom_test = function(req, res) {
 };
 
 exports.post_custom_test_live = function(req, res) {
-    console.log(req.body.sourcecode);
+    //console.log(req.body.sourcecode);
     var options = {
         method: 'POST',
         uri: 'https://api.judge0.com/submissions/?base64_encoded=false&wait=true',

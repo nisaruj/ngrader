@@ -230,6 +230,22 @@ footer {
     background-color: white;
 }
 
+.code-block {
+    background-color: #f1f1f1;
+    margin: 5px 0;
+}
+
+.api-info {
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--smedium);
+}
+
+.api-desc {
+    margin-left: 20px;
+}
+
 /* Problem */
 
 .problem-name {
