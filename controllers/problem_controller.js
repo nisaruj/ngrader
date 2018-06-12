@@ -158,7 +158,7 @@ exports.post_submission_live_editor = function(req, res, next) {
     //console.log(req.file);
     Testcase.findOne({pid: req.params.pid}, function (err, test_res) {
         if (err) return console.log(err);
-        console.log(req.body.sourcecode);
+        //console.log(req.body.sourcecode);
         let options = [];
         for(var i=0;i<test_res.cases.length;i++) {
             options.push({

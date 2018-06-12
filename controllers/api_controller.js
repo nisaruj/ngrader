@@ -1,4 +1,6 @@
 var Problem = require('../models/problem');
+var Submission = require('../models/submission');
+var langList = require('../lang');
 var request = require('request-promise');
 
 exports.get_all_problem = function(req, res) {
@@ -28,4 +30,18 @@ exports.post_submit_custom = function(req, res) {
             memory: body.memory
         })
     });
-}
+};
+
+exports.get_submission = function(req, res) {
+    Submission.findOne({_id: req.params.sid}, {'__v': 0}, function(err, sub_res) {
+        if (sub_res) {
+            res.json(sub_res);
+        } else {
+            res.status(404).json({ error: 'Submission not found.' });
+        }
+    });
+};
+
+exports.get_all_lang = function(req, res) {
+    res.json(langList);
+};

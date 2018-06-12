@@ -51,8 +51,8 @@
         <br>
         <div class="container">
             <h2>APIs usage</h2>
-            <p> <span class="api-info"><i class="fas fa-angle-double-right"></i> Get problems</span></p>
-            <div class="api-desc">
+            <p> <span class="api-info"><i class="fas fa-angle-double-down toggle-btn" id="toggle-0"></i> Get problems</span></p>
+            <div class="api-desc" id="api-0">
                 <p>
                     Return information (pid, tags, name, difficulty, solved) of all available problems.<br>
                     <b>Method:</b> <code><b>GET</b></code><br>
@@ -86,8 +86,8 @@
                 </p>
             </div>
 
-            <p> <span class="api-info"><i class="fas fa-angle-double-right"></i> Submit custom test</span></p>
-            <div class="api-desc">
+            <p> <span class="api-info"><i class="fas fa-angle-double-down toggle-btn" id="toggle-1"></i> Submit custom test</span></p>
+            <div class="api-desc" id="api-1">
                 <p>
                     Complie requested source code and return stdout, time and memory used.<br>
                     <b>Method:</b> <code><b>POST</b></code><br>
@@ -113,6 +113,76 @@
                     </pre>
                 </p>
             </div>
+
+            <p> <span class="api-info"><i class="fas fa-angle-double-down toggle-btn" id="toggle-2"></i> View submission</span></p>
+            <div class="api-desc" id="api-2">
+                <p>
+                    Return specific submission of requested sid.<br>
+                    <b>Method:</b> <code><b>GET</b></code><br>
+                    <b>URI:</b> <a href="/api/submission/5b1645e061b0ef0014b2d974" target="_blank">/api/submission</a><br>
+                    <b>Request example:</b><br>
+                    <pre class="code-block">
+
+    /api/submission/5b1645e061b0ef0014b2d974
+                    </pre>
+                    <b>Success response:</b><br>
+                    <pre class="code-block">
+
+    Code: 200
+    {
+        "result": {
+            "str": "PPPP",
+            "time": 0.024,
+            "memory": 3007
+        },
+        "_id": "5b1645e061b0ef0014b2d974",
+        "pid": 0,
+        "lang": "Python (3.6.0)",
+        "username": "Guest",
+        "sourcecode": "a,b = map(int, input().split())\r\nprint(a+b)",
+        "submit_time": "2018-06-05T08:12:16.750Z"
+    }
+                    </pre>
+                    <b>Error response:</b><br>
+                    <pre class="code-block">
+
+    Code: 404
+    {
+        "error": "Submission not found."
+    }
+                    </pre>
+                </p>
+            </div>
+
+            <p> <span class="api-info"><i class="fas fa-angle-double-down toggle-btn" id="toggle-3"></i> View languages</span></p>
+            <div class="api-desc" id="api-3">
+                <p>
+                    Return all available languages, according to judge0 API.<br>
+                    <b>Method:</b> <code><b>GET</b></code><br>
+                    <b>URI:</b> <a href="/api/languages" target="_blank">/api/languages</a><br>
+                    <b>Success response:</b><br>
+                    <pre class="code-block">
+
+    Code: 200
+    [
+        {
+            "id": 1,
+            "name": "Bash (4.4)"
+        },
+        {
+            "id": 2,
+            "name": "Bash (4.0)"
+        },
+        ...
+        {
+            "id": 43,
+            "name": "Text (plain text)"
+        }
+    ]
+
+                    </pre>
+                </p>
+            </div>
         </div>
         <footer>
             <p>© 2018 nGrader<br>If you have any suggestions, please contact nisaruj@hotmail.com</p>
@@ -121,4 +191,19 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script>
+        toggleStatus = [false, false, false, false, false]
+        $('.toggle-btn').on('click', function() {
+            getID = parseInt(this.id.substring(7))
+            if (toggleStatus[getID]) {
+                $('#api-' + getID).show()
+                $('#toggle-' + getID).attr('class', 'fas fa-angle-double-down toggle-btn');
+            }
+            else {
+                $('#api-' + getID).hide()
+                $('#toggle-' + getID).attr('class', 'fas fa-angle-double-right toggle-btn');
+            }
+            toggleStatus[getID] = !toggleStatus[getID]
+        })
+    </script>
 </html>
