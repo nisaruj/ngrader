@@ -91,14 +91,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
+            let getCookie = function(cname) {
+                var name = cname + "=";
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for(var i = 0; i <ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+            let solved_pid = getCookie('solved_pid').split(',');
+            console.log(solved_pid);
             let problemList;
             $('#problem-list').hide();
             let showProblem = function(res) {
                 let html = '';
                 let count = 0;
-                const diff_color = ['#2dc937', '#e7b416', '#cc3232'];
+                const diff_color = ['#2dc937', '#e7b416', '#cc3232']; //[green, yellow, red]
+                const solved_color = "#bbb";
                 res.forEach(function(e) {
-                    html += '<div class="problem-box" style="border-left-color: ' + diff_color[e.difficulty] + ';" id="box-' + count + '">'
+                    html += '<div class="problem-box" style="border-left-color: ' + (solved_pid.indexOf(e.pid.toString()) == -1 ? diff_color[e.difficulty] : solved_color) + ';" id="box-' + count + '">'
                     html += '<a class="problem-name" href="/problems/' + e.pid + '">' + e.name + '</a><div class="badge-group">';
                     e.tags.forEach(function(tag) {
                         html += '<a href="/problems/tag/' + tag.replace(' ','_') + '" class="badge badge-default">' + tag + '</a> '

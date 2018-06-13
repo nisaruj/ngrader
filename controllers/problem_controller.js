@@ -82,7 +82,6 @@ exports.post_submission = function(req, res, next) {
             .render('problem', {user: req.user, content: prob_res, result: result, accepted: score === data.length, submitLang: req.cookies.submitLang, langlist: lang});
         });
     }
-    //console.log(req.file);
     fs.readFile(req.file.path, "utf8", function(err, sourcecode) {
         Testcase.findOne({pid: req.params.pid}, function (err, test_res) {
             if (err) return console.log(err);
@@ -107,16 +106,13 @@ exports.post_submission = function(req, res, next) {
             Promise.all(promises).then((data) => {
                 get_result(data, sourcecode);
                 fs.unlink(req.file.path);
-                //console.log(data);
             });
-            //console.log(test_res);
         });
     });
 };
 
 exports.post_submission_live_editor = function(req, res, next) {
     var get_result = function(data, sourcecode) {
-        //console.log(data);
         var result = '', score = 0, time_avg = 0, mem_avg = 0;
         for (var i=0;i<data.length;i++) {
             time_avg += parseFloat(data[i].time);
@@ -139,7 +135,6 @@ exports.post_submission_live_editor = function(req, res, next) {
             sourcecode: sourcecode,
             submit_time: new Date(),
             result: {str: result, time: time_avg/data.length, memory: mem_avg/data.length}
-            /* TODO : ADD PROBLEM ID */
         });
         new_submission.save(function(err) {
             if (err) console.log(err);
@@ -151,14 +146,17 @@ exports.post_submission_live_editor = function(req, res, next) {
         }
         Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
             if (err) return console.log(err);
+            if (req.cookies.solved_pid == null) {
+                res.cookie('solved_pid', req.params.pid);
+            } else {
+                res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid);
+            }
             res.cookie('submitLang' , req.body.lang)
             .render('problem', {user: req.user, content: prob_res, result: result, accepted: score === data.length, submitLang: req.cookies.submitLang, langlist: lang});
         });
     }
-    //console.log(req.file);
     Testcase.findOne({pid: req.params.pid}, function (err, test_res) {
         if (err) return console.log(err);
-        //console.log(req.body.sourcecode);
         let options = [];
         for(var i=0;i<test_res.cases.length;i++) {
             options.push({
@@ -178,7 +176,6 @@ exports.post_submission_live_editor = function(req, res, next) {
         const promises = options.map(opt => request(opt));
         Promise.all(promises).then((data) => {
             get_result(data, req.body.sourcecode);
-            //console.log(data);
         });
     });
 };
@@ -188,7 +185,6 @@ exports.get_custom_test = function(req, res) {
 };
 
 exports.post_custom_test_live = function(req, res) {
-    //console.log(req.body.sourcecode);
     var options = {
         method: 'POST',
         uri: 'https://api.judge0.com/submissions/?base64_encoded=false&wait=true',
@@ -200,7 +196,6 @@ exports.post_custom_test_live = function(req, res) {
         json: true
     };
     request(options, function(err, result, body) {
-        //console.log(body);
         console.log(body);
         res.cookie('submitLang' , req.body.lang);
         res.render('custom_test', {user: req.user, submitLang: req.cookies.submitLang, langlist: lang, result: body, request: {stdin: req.body.input, sourcecode: req.body.sourcecode}});
