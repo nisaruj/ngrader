@@ -80,11 +80,15 @@ exports.preview_problem = function(req, res) {
 };
 
 exports.delete_all_submission = function(req, res) {
-    Submission.remove({}, function(err) {
-        if(err) console.log(err);
-        console.log('Removed all submissions');
-        res.redirect('/admin');
-    });
+    if (req.user && req.user.permission === 'admin') {
+        Submission.remove({}, function(err) {
+            if(err) console.log(err);
+            console.log('Removed all submissions');
+            res.redirect('/admin');
+        });
+    } else {
+        res.send("You don't have permission to access this page.");
+    }
 };
 
 exports.get_submission = function(req, res) {
