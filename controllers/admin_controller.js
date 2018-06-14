@@ -74,17 +74,20 @@ exports.post_new_problem = function(req, res) {
 };
 
 exports.preview_problem = function(req, res) {
-    //console.log(req.body);
     req.body.tags = req.body.tags.split(',');
     res.render('problem', {user: req.user, content: req.body, result: null, accepted: null, submitLang: req.cookies.submitLang, langlist: lang});
 };
 
 exports.delete_all_submission = function(req, res) {
-    Submission.remove({}, function(err) {
-        if(err) console.log(err);
-        console.log('Removed all submissions');
-        res.redirect('/admin');
-    });
+    if (req.user && req.user.permission === 'admin') {
+        Submission.remove({}, function(err) {
+            if(err) console.log(err);
+            console.log('Removed all submissions');
+            res.redirect('/admin');
+        });
+    } else {
+        res.render('error', {user: req.user, message: "You don't have permission to access this page."});
+    }
 };
 
 exports.get_submission = function(req, res) {
