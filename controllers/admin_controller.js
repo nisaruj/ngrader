@@ -74,7 +74,6 @@ exports.post_new_problem = function(req, res) {
 };
 
 exports.preview_problem = function(req, res) {
-    //console.log(req.body);
     req.body.tags = req.body.tags.split(',');
     res.render('problem', {user: req.user, content: req.body, result: null, accepted: null, submitLang: req.cookies.submitLang, langlist: lang});
 };
@@ -87,7 +86,7 @@ exports.delete_all_submission = function(req, res) {
             res.redirect('/admin');
         });
     } else {
-        res.send("You don't have permission to access this page.");
+        res.render('error', {user: req.user, message: "You don't have permission to access this page."});
     }
 };
 

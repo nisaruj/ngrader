@@ -44,7 +44,6 @@ exports.get_problem = function(req, res) {
 
 exports.post_submission = function(req, res, next) {
     var get_result = function(data, sourcecode) {
-        //console.log(data);
         var result = '', score = 0, time_avg = 0, mem_avg = 0;
         for (var i=0;i<data.length;i++) {
             time_avg += parseFloat(data[i].time);
@@ -78,7 +77,12 @@ exports.post_submission = function(req, res, next) {
         }
         Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
             if (err) return console.log(err);
-            res.cookie('submitLang' , req.body.lang)
+            if (req.cookies.solved_pid == null) {
+                res.cookie('solved_pid', req.params.pid, { expires: new Date(Date.now() + 2592000000) });
+            } else {
+                res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid, { expires: new Date(Date.now() + 2592000000) });
+            }
+            res.cookie('submitLang' , req.body.lang, { expires: new Date(Date.now() + 2592000000) })
             .render('problem', {user: req.user, content: prob_res, result: result, accepted: score === data.length, submitLang: req.cookies.submitLang, langlist: lang});
         });
     }
@@ -147,11 +151,11 @@ exports.post_submission_live_editor = function(req, res, next) {
         Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
             if (err) return console.log(err);
             if (req.cookies.solved_pid == null) {
-                res.cookie('solved_pid', req.params.pid);
+                res.cookie('solved_pid', req.params.pid, { expires: new Date(Date.now() + 2592000000) });
             } else {
-                res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid);
+                res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid, { expires: new Date(Date.now() + 2592000000) });
             }
-            res.cookie('submitLang' , req.body.lang)
+            res.cookie('submitLang' , req.body.lang, { expires: new Date(Date.now() + 2592000000) })
             .render('problem', {user: req.user, content: prob_res, result: result, accepted: score === data.length, submitLang: req.cookies.submitLang, langlist: lang});
         });
     }
@@ -197,7 +201,7 @@ exports.post_custom_test_live = function(req, res) {
     };
     request(options, function(err, result, body) {
         console.log(body);
-        res.cookie('submitLang' , req.body.lang);
+        res.cookie('submitLang' , req.body.lang, { expires: new Date(Date.now() + 2592000000) });
         res.render('custom_test', {user: req.user, submitLang: req.cookies.submitLang, langlist: lang, result: body, request: {stdin: req.body.input, sourcecode: req.body.sourcecode}});
     });
 };
