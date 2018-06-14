@@ -321,6 +321,14 @@ footer {
 
 /* Admin */
 
+#live-result {
+    width: 100%;
+    height: 500px;
+    background-color:#333;
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+}
+
 #test-input, #test-output {
     width: 100%;
 }

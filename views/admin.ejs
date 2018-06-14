@@ -56,16 +56,16 @@
                     <h2>Admin Panel</h2>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#problem">Problems</a>
+                            <a class="nav-link" data-toggle="tab" href="#problem">Problems</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#submission">Submissions</a>
+                            <a class="nav-link active" data-toggle="tab" href="#submission">Submissions</a>
                         </li>
                     </ul>
                         
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane container active" id="problem">
+                        <div class="tab-pane container fade" id="problem">
                             <form method="POST" action="/admin/updateprob">
                                 <table class="table table-hover">
                                     <thead>
@@ -100,7 +100,7 @@
                                 <button type="submit" class="btn btn-secondary">Update</button>
                             </form>
                         </div>
-                        <div class="tab-pane container fade" id="submission">
+                        <div class="tab-pane container active" id="submission">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -116,10 +116,10 @@
                                 </thead>
                                 <tbody>
                                     <% for(var i=submission.length-1;i>=0;i--) { %>
-                                    <tr>
-                                        <td><a href="/admin/submission/<%= submission[i]._id %>">#<%= submission[i]._id %></a></td>
+                                    <tr class="<%= submission[i].result.str.search(/[-X]/g) != -1 ? 'table-danger' : 'table-success' %>">
+                                        <td><a href="/admin/submission/<%= submission[i]._id %>" target="_blank" role="button" class="btn btn-secondary">Details</a></td>
                                         <td><%= submission[i].submit_time %></td>
-                                        <td><%= problem[submission[i].pid].name %></td>
+                                        <td><a href="/problems/<%= submission[i].pid %>"><%= problem[submission[i].pid].name %></a></td>
                                         <td><%= submission[i].username %></td>
                                         <td><%= submission[i].lang %></td>
                                         <td><%= submission[i].result.str %></td>
