@@ -27,7 +27,8 @@ exports.post_submit_custom = function(req, res) {
         res.json({
             stdout: body.stdout,
             time: body.time,
-            memory: body.memory
+            memory: body.memory,
+            stderr: body.stderr
         })
     });
 };

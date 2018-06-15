@@ -5,7 +5,7 @@ var router = express.Router();
 var problem_controller = require('../controllers/problem_controller');
 var upload = multer({dest: 'tmp/'});
 
-router.get('/', problem_controller.get_all_problem);
+router.get('/', problem_controller.get_problem_list);
 
 router.get('/tag/:tag', problem_controller.get_all_problem_with_tag);
 

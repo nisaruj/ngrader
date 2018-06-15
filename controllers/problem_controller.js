@@ -18,6 +18,12 @@ exports.get_all_problem = function(req, res) {
     })
 };
 
+exports.get_problem_list = function(req, res) {
+    Announcement.find({}, function(err, an_res){
+        res.render('problemlist', {user:req.user, announcement: an_res});
+    })
+};
+
 exports.get_all_problem_with_tag = function(req, res) {
     Problem.find({avail: true, tags: req.params.tag.replace('_', ' ')}, function(err,problem) {
         if (err) {

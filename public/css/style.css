@@ -17,6 +17,11 @@
 
 body {
     font-family: 'Lato', sans-serif;
+    margin: 0 0 100px;
+}
+
+.homepage {
+    margin: 0 0 74px;
 }
 
 a {
@@ -31,6 +36,11 @@ h2 {
     padding: 10px;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 footer {
     font-family: 'Source Code Pro', monospace;
     padding: 10px;
@@ -38,6 +48,10 @@ footer {
     color: white;
     text-align: center;
     font-size: 13px;
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    width: 100%;
 }
 
 #logo {

@@ -130,7 +130,13 @@
                 type: 'POST'
             }).done(function(res) {
                 console.log(res)
-                $('#live-result').val(res.stdout)
+                if (res.stderr !== null) {
+                    $('#live-result').css('color', 'red');
+                    $('#live-result').val(res.stderr)
+                } else {
+                    $('#live-result').css('color', 'white');
+                    $('#live-result').val(res.stdout)
+                }
             })
         })
     </script>
