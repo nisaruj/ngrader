@@ -4,14 +4,18 @@ var request = require('request-promise');
 var Problem = require('../models/problem');
 var Testcase = require('../models/testcase');
 var Submission = require('../models/submission');
+var Announcement = require('../models/announcement');
 
 exports.get_all_problem = function(req, res) {
     Problem.find({avail: true}, function(err,problem) {
         if (err) {
             console.log(err);
+            return
         }
-        res.render('problemlist', {user:req.user, problem: problem});
-    });
+        Announcement.find({}, function(err, an_res){
+            res.render('problemlist', {user:req.user, problem: problem, announcement: an_res});
+        })
+    })
 };
 
 exports.get_all_problem_with_tag = function(req, res) {

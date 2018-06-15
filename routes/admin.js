@@ -17,4 +17,10 @@ router.get('/deleteallsub', admin_controller.delete_all_submission);
 
 router.get('/submission/:sid', admin_controller.get_submission);
 
+router.get('/announcement', admin_controller.get_announcement);
+
+router.post('/announcement', admin_controller.post_announcement);
+
+router.get('/announcement/delete', admin_controller.delete_all_announcement);
+
 module.exports = router;

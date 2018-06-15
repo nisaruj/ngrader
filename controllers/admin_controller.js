@@ -2,6 +2,7 @@ var lang = require('../lang');
 var Problem = require('../models/problem');
 var Testcase = require('../models/testcase');
 var Submission = require('../models/submission');
+var Announcement = require('../models/announcement');
 
 exports.get_admin = function(req, res) {
     //if (req.user && req.user.permission === 'admin') {
@@ -101,7 +102,7 @@ exports.get_submission = function(req, res) {
 };
 
 exports.update_avail = function(req, res) {
-    console.log(req.body.avail);
+    //console.log(req.body.avail);
     const is_avail = new Set(req.body.avail.map(function(num) { return parseInt(num,10); }));
     Problem.find({},function(err, problem_res) {
         for (var i=0;i<problem_res.length;i++) {
@@ -112,4 +113,28 @@ exports.update_avail = function(req, res) {
         }
         res.redirect('/admin');
     });
-}
+};
+
+exports.get_announcement = function(req, res) {
+    Announcement.find({}, function(err, an_res) {
+        res.render('announcement', {user: req.user, announcement: an_res})
+    })
+};
+
+exports.post_announcement = function(req, res) {
+    var new_announcement = new Announcement({
+        date: new Date(),
+        desc: req.body.new_announcement
+    });
+    new_announcement.save(function(err) {
+        if (err) res.render('error', {user: req.user, message: "Saving error."});
+        res.redirect('/admin/announcement');
+    })
+};
+
+exports.delete_all_announcement = function(req, res) {
+    Announcement.remove({}, function(err) {
+        if(err) console.log(err);
+        res.redirect('/admin/announcement');
+    });
+};
