@@ -98,7 +98,7 @@
                         <p>Input</p>
                         <textarea id="stdin" style="width: 100%;"></textarea>
                         <br><br>
-                        <button id="submit-btn" class="btn btn-secondary">Submit</button>
+                        <button id="submit-btn" class="btn btn-secondary" style="width: 100px;">Submit</button>
                         <br>
                     </div>
                 </div>
@@ -118,6 +118,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script>
         $('#submit-btn').on('click', function() {
+            $('#submit-btn').html('<i class="fa fa-spinner fa-spin"></i>')
+            $('#submit-btn').prop('disabled', true)
             data = {
                 sourcecode: myeditor.getValue(),
                 lang: $('#submit-lang-live').val(),
@@ -137,6 +139,8 @@
                     $('#live-result').css('color', 'white');
                     $('#live-result').val(res.stdout)
                 }
+                $('#submit-btn').html('Submit')
+                $('#submit-btn').prop('disabled', false)
             })
         })
     </script>
