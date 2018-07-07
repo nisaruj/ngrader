@@ -52,7 +52,7 @@ In case you use Heroku, add config variables in settings tab.
 ## TODO
 
 - [x] Fix homepage responsiveness
-- [ ] Redesign problem list page
+- [x] Redesign problem list page
 
 ## Dependencies
 - body-parser: 1.18.2
