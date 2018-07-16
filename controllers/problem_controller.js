@@ -160,10 +160,12 @@ exports.post_submission_live_editor = function(req, res, next) {
         }
         Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
             if (err) return console.log(err);
-            if (req.cookies.solved_pid == null) {
-                res.cookie('solved_pid', req.params.pid, { expires: new Date(Date.now() + 2592000000) });
-            } else {
-                res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid, { expires: new Date(Date.now() + 2592000000) });
+            if (score === data.length) {
+                if (req.cookies.solved_pid == null) {
+                    res.cookie('solved_pid', req.params.pid, { expires: new Date(Date.now() + 2592000000) });
+                } else {
+                    res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid, { expires: new Date(Date.now() + 2592000000) });
+                }
             }
             res.cookie('submitLang' , req.body.lang, { expires: new Date(Date.now() + 2592000000) })
             .render('problem', {user: req.user, content: prob_res, result: result, accepted: score === data.length, submitLang: req.cookies.submitLang, langlist: lang});
