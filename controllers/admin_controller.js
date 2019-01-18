@@ -122,19 +122,27 @@ exports.get_announcement = function(req, res) {
 };
 
 exports.post_announcement = function(req, res) {
-    var new_announcement = new Announcement({
-        date: new Date(),
-        desc: req.body.new_announcement
-    });
-    new_announcement.save(function(err) {
-        if (err) res.render('error', {user: req.user, message: "Saving error."});
-        res.redirect('/admin/announcement');
-    })
+    if (req.user && req.user.permission === 'admin') {
+        var new_announcement = new Announcement({
+            date: new Date(),
+            desc: req.body.new_announcement
+        });
+        new_announcement.save(function(err) {
+            if (err) res.render('error', {user: req.user, message: "Saving error."});
+            res.redirect('/admin/announcement');
+        })
+    } else {
+        res.render('error', {user: req.user, message: "You don't have permission to access this page."});
+    }
 };
 
 exports.delete_all_announcement = function(req, res) {
-    Announcement.remove({}, function(err) {
-        if(err) console.log(err);
-        res.redirect('/admin/announcement');
-    });
+    if (req.user && req.user.permission === 'admin') {
+        Announcement.remove({}, function(err) {
+            if(err) console.log(err);
+            res.redirect('/admin/announcement');
+        });
+    } else {
+        res.render('error', {user: req.user, message: "You don't have permission to access this page."});
+    }
 };
