@@ -6,13 +6,18 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy  = require('passport-local').Strategy;
- 
+var dotenv = require('dotenv');
+dotenv.config();
+
 var server_port = process.env.PORT || appConfig.server_port;
 var session_secret = process.env.SESSION_SECRET || appConfig.session_secret;
 var db_user = process.env.DB_USER || appConfig.db_user;
 var db_pass = process.env.DB_PASS || appConfig.db_pass;
 var connection_string = process.env.DB_STR || appConfig.connection_string;
-mongoose.connect(connection_string);
+mongoose.connect(connection_string, { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 var server = app.listen(server_port, function(){
     console.log('Listening on port %d',server_port);
