@@ -119,7 +119,7 @@
                                     <tr class="<%= submission[i].in_queue ? 'table-secondary' : (submission[i].result.str.search(/[-X]/g) != -1 ? 'table-danger' : 'table-success') %>">
                                         <td><a href="/admin/submission/<%= submission[i]._id %>" target="_blank" role="button" class="btn btn-secondary">Details</a></td>
                                         <td><%= submission[i].submit_time %></td>
-                                        <td><a href="/problems/<%= submission[i].pid %>"><%= problem[submission[i].pid].name %></a></td>
+                                        <td><a href="/problems/<%= submission[i].pid %>"><%= problem.find(prob => prob.pid == submission[i].pid).name %></a></td>
                                         <td><%= submission[i].username %></td>
                                         <td><%= submission[i].lang %></td>
                                         <% if (submission[i].in_queue) { %>
