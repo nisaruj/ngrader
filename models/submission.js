@@ -9,7 +9,8 @@ var submissionSchema = new Schema({
     submit_time: Date,
     time: Number,
     memory: Number,
-    result: {str: String, time: Number, memory: Number}
+    result: {str: String, time: Number, memory: Number},
+    in_queue: Boolean
 });
 
 module.exports = mongoose.model('Submission', submissionSchema);

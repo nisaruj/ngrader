@@ -116,15 +116,21 @@
                                 </thead>
                                 <tbody>
                                     <% for(var i=submission.length-1;i>=0;i--) { %>
-                                    <tr class="<%= submission[i].result.str.search(/[-X]/g) != -1 ? 'table-danger' : 'table-success' %>">
+                                    <tr class="<%= submission[i].in_queue ? 'table-secondary' : (submission[i].result.str.search(/[-X]/g) != -1 ? 'table-danger' : 'table-success') %>">
                                         <td><a href="/admin/submission/<%= submission[i]._id %>" target="_blank" role="button" class="btn btn-secondary">Details</a></td>
                                         <td><%= submission[i].submit_time %></td>
                                         <td><a href="/problems/<%= submission[i].pid %>"><%= problem[submission[i].pid].name %></a></td>
                                         <td><%= submission[i].username %></td>
                                         <td><%= submission[i].lang %></td>
-                                        <td><%= submission[i].result.str %></td>
-                                        <td><%= submission[i].result.time.toFixed(3) %></td>
-                                        <td><%= submission[i].result.memory.toFixed(0) %></td>
+                                        <% if (submission[i].in_queue) { %>
+                                            <td>In queue</td>
+                                            <td>?</td>
+                                            <td>?</td>
+                                        <% } else { %>
+                                            <td><%= submission[i].result.str %></td>
+                                            <td><%= submission[i].result.time.toFixed(3) %></td>
+                                            <td><%= submission[i].result.memory.toFixed(0) %></td>
+                                        <% } %>
                                     </tr>
                                     <% } %>
                                 </tbody>

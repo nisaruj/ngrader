@@ -53,7 +53,7 @@ exports.get_problem = function(req, res) {
 };
 
 exports.post_submission = function(req, res, next) {
-    var get_result = function(data, sourcecode) {
+    var get_result = function(data, sourcecode, submission_id) {
         var result = '', score = 0, time_avg = 0, mem_avg = 0;
         for (var i=0;i<data.length;i++) {
             time_avg += parseFloat(data[i].time);
@@ -69,42 +69,24 @@ exports.post_submission = function(req, res, next) {
                 break;
             } else result += 'X';
         }
-        var new_submission = new Submission({
-            pid: req.params.pid,
-            lang: lang[parseInt(req.body.lang)-1].name,
-            username: req.user ? req.user.username : 'Guest',
-            sourcecode: sourcecode,
-            submit_time: new Date(),
-            result: {str: result, time: time_avg/data.length, memory: mem_avg/data.length}
-        });
-        new_submission.save(function(err) {
-            if (err) console.log(err);
+        const submission_result = {str: result, time: time_avg/data.length, memory: mem_avg/data.length}
+        Submission.updateOne({ _id: submission_id }, { in_queue: false, result: submission_result }, (err, res) => {
+            if (err) console.log(err)
         });
         if (score === data.length) {
             Problem.findOneAndUpdate({pid : req.params.pid}, {$inc : {solved : 1}}, function(err){
                 if(err) console.log(err);
             });
         }
-        Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
-            if (err) return console.log(err);
-            if (req.cookies.solved_pid == null) {
-                res.cookie('solved_pid', req.params.pid, { expires: new Date(Date.now() + 2592000000) });
-            } else {
-                res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid, { expires: new Date(Date.now() + 2592000000) });
-            }
-            res.cookie('submitLang' , req.body.lang, { expires: new Date(Date.now() + 2592000000) })
-            .render('problem', {user: req.user, content: prob_res, result: result, accepted: score === data.length, submitLang: req.cookies.submitLang, langlist: lang});
-        });
     }
     fs.readFile(req.file.path, "utf8", function(err, sourcecode) {
         Testcase.findOne({pid: req.params.pid}, function (err, test_res) {
             if (err) return console.log(err);
-            console.log(sourcecode);
             let options = [];
             for(var i=0;i<test_res.cases.length;i++) {
                 options.push({
                     method: 'POST',
-                    uri: 'https://api.judge0.com/submissions/?base64_encoded=false&wait=true',
+                    uri: 'https://api.judge0.com/submissions/?base64_encoded=false',
                     body: {
                         "source_code": sourcecode,
                         "language_id": parseInt(req.body.lang),
@@ -116,17 +98,34 @@ exports.post_submission = function(req, res, next) {
                     json: true
                 });
             }
-            const promises = options.map(opt => request(opt));
-            Promise.all(promises).then((data) => {
-                get_result(data, sourcecode);
-                fs.unlink(req.file.path);
+            var new_submission = new Submission({
+                pid: req.params.pid,
+                lang: lang[parseInt(req.body.lang)-1].name,
+                username: req.user ? req.user.username : 'Guest',
+                sourcecode: sourcecode,
+                submit_time: new Date(),
+                in_queue: true
+            });
+            new_submission.save(function(err, submission) {
+                if (err) console.log(err);
+                res.redirect('/admin')
+                fs.unlink(req.file.path, () => {});
+                const getTokens = options.map(opt => request(opt).then(res => res.token));
+                Promise.all(getTokens).then(tokens => {
+                    setTimeout(() => {
+                        Promise.all(tokens.map(token => request(`https://api.judge0.com/submissions/${token}`).then(res => JSON.parse(res))))
+                        .then(data => {
+                            get_result(data, sourcecode, submission.id)
+                        })
+                    }, 10000);
+                })
             });
         });
     });
 };
 
 exports.post_submission_live_editor = function(req, res, next) {
-    var get_result = function(data, sourcecode) {
+    var get_result = function(data, sourcecode, submission_id) {
         var result = '', score = 0, time_avg = 0, mem_avg = 0;
         for (var i=0;i<data.length;i++) {
             time_avg += parseFloat(data[i].time);
@@ -142,42 +141,38 @@ exports.post_submission_live_editor = function(req, res, next) {
                 break;
             } else result += 'X';
         }
-        var new_submission = new Submission({
-            pid: req.params.pid,
-            lang: lang[parseInt(req.body.lang)-1].name,
-            username: req.user ? req.user.username : 'Guest',
-            sourcecode: sourcecode,
-            submit_time: new Date(),
-            result: {str: result, time: time_avg/data.length, memory: mem_avg/data.length}
+
+        const submission_result = {str: result, time: time_avg/data.length, memory: mem_avg/data.length}
+        Submission.updateOne({ _id: submission_id }, { in_queue: false, result: submission_result }, (err, res) => {
+            if (err) console.log(err)
         });
-        new_submission.save(function(err) {
-            if (err) console.log(err);
-        });
+
         if (score === data.length) {
             Problem.findOneAndUpdate({pid : req.params.pid}, {$inc : {solved : 1}}, function(err){
                 if(err) console.log(err);
             });
         }
-        Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
-            if (err) return console.log(err);
-            if (score === data.length) {
-                if (req.cookies.solved_pid == null) {
-                    res.cookie('solved_pid', req.params.pid, { expires: new Date(Date.now() + 2592000000) });
-                } else {
-                    res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid, { expires: new Date(Date.now() + 2592000000) });
-                }
-            }
-            res.cookie('submitLang' , req.body.lang, { expires: new Date(Date.now() + 2592000000) })
-            .render('problem', {user: req.user, content: prob_res, result: result, accepted: score === data.length, submitLang: req.cookies.submitLang, langlist: lang});
-        });
+        // Problem.findOne({avail: true, pid: req.params.pid}, function (err, prob_res) {
+        //     if (err) return console.log(err);
+        //     if (score === data.length) {
+        //         if (req.cookies.solved_pid == null) {
+        //             res.cookie('solved_pid', req.params.pid, { expires: new Date(Date.now() + 2592000000) });
+        //         } else {
+        //             res.cookie('solved_pid', req.cookies.solved_pid + ',' + req.params.pid, { expires: new Date(Date.now() + 2592000000) });
+        //         }
+        //     }
+        //     res.cookie('submitLang' , req.body.lang, { expires: new Date(Date.now() + 2592000000) })
+        //     .render('problem', {user: req.user, content: prob_res, result: result, accepted: score === data.length, submitLang: req.cookies.submitLang, langlist: lang});
+        // });
     }
+
     Testcase.findOne({pid: req.params.pid}, function (err, test_res) {
         if (err) return console.log(err);
         let options = [];
         for(var i=0;i<test_res.cases.length;i++) {
             options.push({
                 method: 'POST',
-                uri: 'https://api.judge0.com/submissions/?base64_encoded=false&wait=true',
+                uri: 'https://api.judge0.com/submissions/?base64_encoded=false',
                 body: {
                     "source_code": req.body.sourcecode,
                     "language_id": parseInt(req.body.lang),
@@ -189,9 +184,27 @@ exports.post_submission_live_editor = function(req, res, next) {
                 json: true
             });
         }
-        const promises = options.map(opt => request(opt));
-        Promise.all(promises).then((data) => {
-            get_result(data, req.body.sourcecode);
+
+        var new_submission = new Submission({
+            pid: req.params.pid,
+            lang: lang[parseInt(req.body.lang)-1].name,
+            username: req.user ? req.user.username : 'Guest',
+            sourcecode: req.body.sourcecode,
+            submit_time: new Date(),
+            in_queue: true
+        });
+        new_submission.save(function(err, submission) {
+            if (err) console.log(err);
+            res.redirect('/admin')
+            const getTokens = options.map(opt => request(opt).then(res => res.token));
+            Promise.all(getTokens).then(tokens => {
+                setTimeout(() => {
+                    Promise.all(tokens.map(token => request(`https://api.judge0.com/submissions/${token}`).then(res => JSON.parse(res))))
+                    .then(data => {
+                        get_result(data, req.body.sourcecode, submission.id)
+                    })
+                }, 10000);
+            })
         });
     });
 };

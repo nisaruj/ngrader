@@ -56,9 +56,9 @@
                 <li class="list-group-item">pid: <%= submission.pid %></li>
                 <li class="list-group-item">Language: <%= submission.lang %></li>
                 <li class="list-group-item">Username: <%= submission.username %></li>
-                <li class="list-group-item">Result: <%= submission.result.str %></li>
-                <li class="list-group-item">Time: <%= submission.result.time.toFixed(3) %> seconds</li>
-                <li class="list-group-item">Memory: <%= submission.result.memory %> kilobytes</li>
+                <li class="list-group-item">Result: <%= submission.in_queue ? 'In queue' : submission.result.str %></li>
+                <li class="list-group-item">Time: <%= submission.in_queue ? '???' : submission.result.time.toFixed(3) %> seconds</li>
+                <li class="list-group-item">Memory: <%= submission.in_queue ? '???' : submission.result.memory %> kilobytes</li>
                 <li class="list-group-item">Submit Time: <%= submission.submit_time %></li>
             </ul>
             <pre><code class="language-javascript"><%= submission.sourcecode %></code></pre>
