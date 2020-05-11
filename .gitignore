@@ -1,7 +1,0 @@
-.vscode/
-.DS_Store
-node_modules/
-/config.json
-.env
-tmp/
-!tmp/.keep
