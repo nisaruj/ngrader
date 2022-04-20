@@ -1,3 +1,5 @@
+## (Discontinued) Please do not use the project.
+
 # ngrader
 ![nGrader logo](https://raw.githubusercontent.com/nisaruj/ngrader/master/public/images/ngrader.png)
 
